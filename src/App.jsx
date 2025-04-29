@@ -7,21 +7,27 @@ import EventPage from "./components/EventPage";
 import Dashboard from "./components/Dashboard";
 
 function App() {
-  const [events, setEvents] = useState([]);
+  const [attractions, setAttractions] = useState([]);
 
-  const getEvents = async () => {
+  const getAttractions = async () => {
+
+    const apiKey = '4P5afjX98PHm5yhdSLbee6G9PVKAQGB7';
+    const attractionId = [
+      "K8vZ917K7fV", // Findings
+      "K8vZ917_YJf", // Neon
+      "K8vZ917bJC7", // Skeikampenfestivalen
+      "K8vZ917oWOV" // Tons of Rock
+    ];
+
     //Try..catch istället för .then...catch eftersom jag frågade chatgpt och den sa att det var bättre, mer läsbar kod osv.
     try {
-      const apiKey = "TMg5Ty2vSaGfUDp1N53C4XG6tuaK762c";
-      const response = await fetch(
-        `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}`
-      );
+      const url = `https://app.ticketmaster.com/discovery/v2/attractions?apikey=${apiKey}&locale=*&id=${attractionId}`;
 
+      const response = await fetch(url);
       const data = await response.json();
+
       if (data._embedded) {
-        setEvents(data._embedded.events);
-      } else {
-        console.log("Finner ingen events")
+        setAttractions(data._embedded.attractions);
       }
     } catch (error) {
       console.error("Skjedde noe feil ved fetch")
@@ -29,15 +35,15 @@ function App() {
   };
   
   useEffect(() => {
-    getEvents();
+    getAttractions();
   }, []);
 
   return (
    <Layout>
       <Routes>
-        <Route path="/" element={<Home events={events} />}></Route>
-        <Route path="/event/:id" element={<EventPage events={events} />}></Route>
-        <Route path="/category/:slug" element={<CategoryPage events={events}/>}></Route>
+        <Route path="/" element={<Home attractions={attractions} />}></Route>
+        <Route path="/event/:id" element={<EventPage attractions={attractions} />}></Route>
+        <Route path="/category/:slug" element={<CategoryPage attractions={attractions}/>}></Route>
         <Route path="/dashboard" element={<Dashboard />}></Route>
       </Routes>
    </Layout>
