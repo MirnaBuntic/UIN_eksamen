@@ -6,9 +6,6 @@ export default function Nav() {
     return (
         <nav>
             <ul>
-                <li>
-                    <Link to="/">Forside</Link>
-                </li>
                 {categories.map((category) => (
                     <li key={category.id}>
                         <Link to={`/category/${category.slug}`}>{category.name}</Link>
