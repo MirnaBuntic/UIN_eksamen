@@ -6,9 +6,7 @@ export default function Header(){
     return (
         <header>
             {/* Logo - link til forside*/}
-            <Link to="/" id="logo">
-            <img src="" alt="logo"></img>
-            </Link>
+            <Link to="/" id="logo">BilettLyst</Link>
 
             <Nav />
         </header>
