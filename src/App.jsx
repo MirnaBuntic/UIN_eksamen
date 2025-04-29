@@ -42,7 +42,7 @@ function App() {
    <Layout>
       <Routes>
         <Route path="/" element={<Home attractions={attractions} />}></Route>
-        <Route path="/event/:id" element={<EventPage attractions={attractions} />}></Route>
+        <Route path="/event/:slug" element={<EventPage attractions={attractions} />}></Route>
         <Route path="/category/:slug" element={<CategoryPage attractions={attractions}/>}></Route>
         <Route path="/dashboard" element={<Dashboard />}></Route>
       </Routes>

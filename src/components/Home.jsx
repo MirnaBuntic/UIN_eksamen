@@ -11,11 +11,13 @@ export default function Home({ attractions }) {
                     ?attraction.images[0].url
                     : null;
 
+                const slug = attraction.name.toLowerCase().replace(/\s+/g, '-');    
+
                 return (
                     <article key={attraction.id}>
                         {imageUrl && <img src={imageUrl} alt={attraction.name} />}
                         <h2>{attraction.name}</h2>
-                        <Link to={`/event/${attraction.id}`}>Les mer om {attraction.name}</Link>
+                        <Link to={`/event/${slug}`}>Les mer om {attraction.name}</Link>
                     </article>
                 );
             })}
