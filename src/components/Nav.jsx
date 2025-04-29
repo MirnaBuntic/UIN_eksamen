@@ -1,25 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import categories from "./DataCategory";
 
 export default function Nav() {
-    const categories = [
-        {
-            id: 1,
-            name: "Musikk",
-            slug: "musikk"
-        },
-        {
-            id: 2,
-            name: "Sport",
-            slug: "sport"
-        },
-        {
-            id: 3,
-            name: "Teater/Show",
-            slug: "teater"
-        }
-    ];
-
     return (
         <nav>
             <ul>
@@ -27,12 +10,12 @@ export default function Nav() {
                     <Link to="/">Forside</Link>
                 </li>
                 {categories.map((category) => (
-                    <li key={categories.id}>
+                    <li key={category.id}>
                         <Link to={`/category/${category.slug}`}>{category.name}</Link>
                     </li>
                 ))}
                 <li>
-                    <Link to= "/dashboard">Min side</Link>
+                    <Link to= "/dashboard">Logg inn</Link>
                 </li>
             </ul>
         </nav>
