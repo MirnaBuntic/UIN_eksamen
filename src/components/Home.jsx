@@ -1,26 +1,14 @@
 import { Link } from "react-router-dom";
+import EventCard from "./EventCard.";
 
 export default function Home({ attractions }) {
 
     return (
         <section>
             <h1>Sommerens festivaler!</h1>
-
-            {attractions?.map((attraction) => {
-                const imageUrl = attraction.images && attraction.images.length > 0
-                    ?attraction.images[0].url
-                    : null;
-
-                const slug = attraction.name.toLowerCase().replace(/\s+/g, '-');    
-
-                return (
-                    <article key={attraction.id}>
-                        {imageUrl && <img src={imageUrl} alt={attraction.name} />}
-                        <h2>{attraction.name}</h2>
-                        <Link to={`/event/${slug}`}>Les mer om {attraction.name}</Link>
-                    </article>
-                );
-            })}
+            {attractions?.map((attraction) => (
+                <EventCard key={attraction.id} attraction={attraction} />
+            ))}
         </section>
     );
 }
