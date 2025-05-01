@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import EventCard from "./EventCard.";
 
 export default function Home({ attractions }) {

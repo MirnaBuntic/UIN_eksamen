@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function EventCard({attraction}) {
+export default function EventCard({ attraction }) {
     console.log("Riktig eventcard for event:", attraction.name);
 
     const imageUrl = attraction.images?.[0]?.url;
