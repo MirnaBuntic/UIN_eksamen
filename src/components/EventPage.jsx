@@ -22,6 +22,7 @@ export default function EventPage({ attractions }) {
             const apiKey = "4P5afjX98PHm5yhdSLbee6G9PVKAQGB7";
             const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&locale=*&attractionId=${attraction.id}`;
 
+            //Chat gpt, samma metod som i app.jsx
             try {
                 const response = await fetch(url);
                 const data = await response.json();
@@ -39,12 +40,11 @@ export default function EventPage({ attractions }) {
 
     return (
         <>
-            <h2>{attraction.name}</h2>
-
+            <h1>{attraction.name}</h1>
          
             {artists.length > 0 && (
                 <section>
-                    <h3>Artister:</h3>
+                    <h2>Artister:</h2>
                     <ul>
                         {artists.map((artist) => (
                             <li key={artist.id}>

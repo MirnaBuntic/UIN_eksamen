@@ -55,6 +55,8 @@ export default function Home({ attractions }) {
                     ))}
                 </div>
 
+                <h3>Hva skjer i {city}</h3>
+
                 <div>
                     {events.length > 0 ? (
                         events.map((event) => (
