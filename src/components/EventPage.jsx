@@ -40,8 +40,8 @@ export default function EventPage({ attractions }) {
 
     return (
         <>
-            <h1>{attraction.name}</h1>
-         
+            <h2>{attraction.name}</h2>
+
             {artists.length > 0 && (
                 <section>
                     <h2>Artister:</h2>
