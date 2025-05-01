@@ -8,7 +8,6 @@ export default function CategoryPage () {
 
   
   const [events, setEvents] =useState([]);
-  const [attractions, setAttractions] = useState([]);
   const [filters, setFilters] = useState({
     keyword: "",
     city: "",
@@ -29,6 +28,7 @@ export default function CategoryPage () {
         url +=`&keyword=${filters.keyword || slug}`;
       } 
 
+      //brukt chatgpt til å legge til keyword, lagt til i kilder
       url += `&classificationName=Music, Festival`;
 
       if (filters.city) {
@@ -59,6 +59,7 @@ export default function CategoryPage () {
       const {name, value} = e.target;
       setFilters((prev) => ({...prev, [name]: value}));
     };
+    //husk kilde på prev
 
     const toggleWishlist = (id) => {
       setWishlist((prev) =>
@@ -69,7 +70,7 @@ export default function CategoryPage () {
   return (
     <>
 
-      <h1>{slug}</h1>
+      <h1>{slug.toUpperCase()}</h1>
 
       <div className="filters">
         <input 
