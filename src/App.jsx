@@ -6,7 +6,7 @@ import CategoryPage from "./components/CategoryPage";
 import EventPage from "./components/EventPage";
 import Dashboard from "./components/Dashboard";
 
-function App() {
+export default function App() {
   const [attractions, setAttractions] = useState([]);
 
   const getAttractions = async () => {
@@ -50,4 +50,3 @@ function App() {
   )
 }
 
-export default App
