@@ -11,10 +11,6 @@ export default function EventPage({ attractions }) {
         attraction.name.toLowerCase().replace(/\s+/g, '-') === slug
     );
 
-    if (!attraction) {
-        return <p>Ingen festival funnet...</p>;
-    }
-
     useEffect(() => {
         const getArtists = async () => {
             if (!attraction) return;
@@ -37,6 +33,10 @@ export default function EventPage({ attractions }) {
 
         getArtists();
     }, [attraction]);
+
+    if (!attraction) {
+        return <p>Ingen festival funnet...</p>;
+    }
 
     return (
         <>

@@ -39,7 +39,7 @@ export default function Home({ attractions }) {
             <section>
                 <h1>Sommerens festivaler!</h1>
                 {attractions?.map((attraction) => (
-                    <EventCard key={attraction.id} attraction={attraction} type="festival" />
+                    <EventCard key={attraction.id} attraction={attraction} />
                 ))}
             </section>
 
@@ -59,7 +59,7 @@ export default function Home({ attractions }) {
                 <div>
                     {events.length > 0 ? (
                         events.map((event) => (
-                            <EventCard key={event.id} attraction={event} type="event" />
+                            <EventCard key={event.id} attraction={event} />
                         ))
                     ) : (
                         <p>Ingen events funnet i {city}.</p>

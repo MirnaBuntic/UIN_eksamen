@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function EventCard({ attraction, type }) {
+export default function EventCard({ attraction }) {
     console.log("Riktig eventcard for event:", attraction.name);
 
     const imageUrl = attraction.images?.[0]?.url;
@@ -13,9 +13,11 @@ export default function EventCard({ attraction, type }) {
     const country = venue?.country?.name;
     const venueName = venue?.name;
 
+    const isEvent = Boolean(eventDate && eventTime && city && country);
+
     return (
         <>
-            {type === "festival" && (
+            {!isEvent && (
                 <article>
                     {imageUrl && <img src={imageUrl} alt={attraction.name} />}
                     <h3>{attraction.name}</h3>
@@ -23,7 +25,7 @@ export default function EventCard({ attraction, type }) {
                 </article>
             )}
 
-            {type === "event" && (
+            {isEvent && (
                 <article>
                     {imageUrl && <img src={imageUrl} alt={attraction.name} />}
                     <h3>{attraction.name}</h3> 
@@ -32,7 +34,7 @@ export default function EventCard({ attraction, type }) {
                     <p>{country}</p>
                     <p>{city}</p>
                     <p>{venueName ? venueName : "Stedinformasjon vil bli tilgjengelig snart"}</p>
-                </article>
+                </article>       
             )}
         </>
     );
