@@ -56,9 +56,21 @@ export default function EventPage({ attractions }) {
         <>
             <h2>{attraction.name}</h2>
 
-            <h3>Sjanger:</h3>
+            <section>
 
-            <h3>Følg oss på sosiale medier:</h3>
+                <article>
+                    
+                    <h3>Sjanger: </h3>
+
+                </article>
+
+                <article>
+
+                    <h3>Følg oss på sosiale medier:</h3>
+
+                </article>
+            </section>
+
 
             {festivalPasses.length > 0 && (
                 <section>
@@ -67,7 +79,7 @@ export default function EventPage({ attractions }) {
                         {festivalPasses.map(pass => (
                             <li key={pass.id}>
                                 {pass.image && <img src={pass.image} alt={pass.name} />}
-                                <h>{pass.name}</h>
+                                <h3>{pass.name}</h3>
                                 <p>{pass.venue}</p>
                                 <p>{pass.date}</p>
                                 <p>Kjøp</p>
