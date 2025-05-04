@@ -37,7 +37,7 @@ export default function EventPage({ attractions }) {
                 const singleGenres = [...new Set(genres)]; //chatgpt nr 4
                 setGenres(singleGenres.length > 0 ? singleGenres : ["Ingen genre tilgjengelig"]);
 
-                const socialLinks = events[0]?._embedded?.attractions[0]?.externalLinks || [];
+                const socialLinks = events[0]?._embedded?.attractions[0]?.externalLinks || {};
                 setSocialMedia(socialLinks);
 
                 const passes = events.map(event => ({
@@ -71,7 +71,7 @@ export default function EventPage({ attractions }) {
 
             <section>
                 <article>
-                    <h3>Sjanger: </h3>
+                    <h3>Sjanger:</h3>
                     <ul>
                         {genres.map((genre, index) => (
                             <li key={index}>{genre}</li>
@@ -79,10 +79,10 @@ export default function EventPage({ attractions }) {
                     </ul>
                 </article>
 
-                {/*Fcik hjälp av chatgpt med användningen av object.keys för att få det som var i console logen synligt på sidan. nr5*/}
-                {Object.keys(socialMedia).length > 0 && (
-                    <article>
-                        <h3>Følg oss på sosiale medier:</h3>
+                {/*Fick hjälp av chatgpt med användningen av object.keys för att få det som var i console logen synligt på sidan. nr5*/}
+                <article>
+                    <h3>Følg oss på sosiale medier:</h3>
+                    {Object.keys(socialMedia).length > 0 ? (
                         <ul>
                             {Object.keys(socialMedia).map((platform, index) => (
                                 <li key={index}>
@@ -90,8 +90,11 @@ export default function EventPage({ attractions }) {
                                 </li>
                             ))}
                         </ul>
-                    </article>
-                )}
+                    ):(
+                        <p>Ingen sociale medier tilgjengelig</p>
+                    )}
+                </article>
+              
             </section>
 
 
