@@ -85,6 +85,10 @@ article{
     .festivaler{
         flex-direction: row !important; 
         flex-wrap: wrap;
+        
+        h1{
+            width: 100%;
+        }
 
     }
 }
