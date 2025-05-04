@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CategoryCard from "./CategoryCard";
-import categories from "./DataCategory";
+import categories from "./DataCategory"; // value is never read!!
 
 export default function CategoryPage () {
   const { slug } = useParams ();

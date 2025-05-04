@@ -7,6 +7,7 @@ export default function EventPage({ attractions }) {
 
     const { slug } = useParams();
     const [genres, setGenres] = useState([]);
+    const [socialMedia, setSocialMedia] = useState([]);
     const [festivalPasses, setFestivalPasses] = useState([]);
     const [artists, setArtists] = useState([]);
 
@@ -35,6 +36,9 @@ export default function EventPage({ attractions }) {
 
                 const singleGenres = [...new Set(genres)]; //chatgpt nr 4
                 setGenres(singleGenres.length > 0 ? singleGenres : ["Ingen genre tilgjengelig"]);
+
+                const socialLinks = events[0]?._embedded?.attractions[0]?.externalLinks || [];
+                setSocialMedia(socialLinks);
 
                 const passes = events.map(event => ({
                     id: event.id,
@@ -66,24 +70,28 @@ export default function EventPage({ attractions }) {
             <h2>{attraction.name}</h2>
 
             <section>
-
                 <article>
-                    
                     <h3>Sjanger: </h3>
-
                     <ul>
                         {genres.map((genre, index) => (
                             <li key={index}>{genre}</li>
                         ))}
                     </ul>
-
                 </article>
 
-                <article>
-
-                    <h3>Følg oss på sosiale medier:</h3>
-
-                </article>
+                {/*Fcik hjälp av chatgpt med användningen av object.keys för att få det som var i console logen synligt på sidan. nr5*/}
+                {Object.keys(socialMedia).length > 0 && (
+                    <article>
+                        <h3>Følg oss på sosiale medier:</h3>
+                        <ul>
+                            {Object.keys(socialMedia).map((platform, index) => (
+                                <li key={index}>
+                                    <a href={socialMedia[platform][0].url}>{platform}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    </article>
+                )}
             </section>
 
 
