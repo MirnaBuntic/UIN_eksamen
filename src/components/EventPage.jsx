@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ArtistCard from "./ArtistCard";
+import EventCard from "./EventCard";
 
 export default function EventPage({ attractions }) {
 
@@ -36,7 +37,7 @@ export default function EventPage({ attractions }) {
                 setGenres(singleGenres.length > 0 ? singleGenres : ["Ingen genre tilgjengelig"]);
 
                 const passes = events.map(event => ({
-                    id:event.id,
+                    id: event.id,
                     name: event.name,
                     image: event.images?.[0]?.url,
                     date: event.dates?.start?.localDate,
@@ -90,14 +91,7 @@ export default function EventPage({ attractions }) {
                 <section>
                     <h2>Festivalpass:</h2>
                     {festivalPasses.map(pass => (
-                        <article key={pass.id}>
-                            {pass.image && <img src={pass.image} alt={pass.name} />}
-                            <h3>{pass.name}</h3>
-                            <p>{pass.venue}</p>
-                            <p>{pass.date}</p>
-                            <p>Kjøp</p>
-                            <p>Legg til i ønskeliste</p>
-                        </article>
+                        <EventCard key={pass.id} event={pass} />
                     ))}
                 </section>
             )}
