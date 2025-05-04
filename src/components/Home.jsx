@@ -16,7 +16,7 @@ export default function Home({ attractions }) {
     ]
 
     const getEvents = async (cityName) => {
-        //Chat gpt, samma metod som i app.jsx
+        //Chat gpt, samma metod som i app.jsx nr1
         try {
             const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&city=${cityName}&size=10`;
             const response = await fetch(url);

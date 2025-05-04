@@ -28,7 +28,7 @@ export default function CategoryPage () {
         url +=`&keyword=${filters.keyword || slug}`;
       } 
 
-      //brukt chatgpt til å legge til keyword, lagt til i kilder
+      //brukt chatgpt til å legge til keyword, lagt til i kilder nr2
       url += `&classificationName=Music, Festival`;
 
       if (filters.city) {

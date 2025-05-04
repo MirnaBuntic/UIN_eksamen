@@ -19,7 +19,7 @@ export default function App() {
       "K8vZ917oWOV" // Tons of Rock
     ];
 
-    //Try..catch istället för .then...catch eftersom jag frågade chatgpt och den sa att det var bättre, mer läsbar kod osv.
+    //Try..catch istället för .then...catch eftersom jag frågade chatgpt och den sa att det var bättre, mer läsbar kod osv. nr 1
     try {
       const url = `https://app.ticketmaster.com/discovery/v2/attractions?apikey=${apiKey}&locale=*&id=${attractionId}`;
 

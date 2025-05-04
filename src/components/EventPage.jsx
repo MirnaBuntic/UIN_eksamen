@@ -5,6 +5,7 @@ import ArtistCard from "./ArtistCard";
 export default function EventPage({ attractions }) {
 
     const { slug } = useParams();
+    const [genres, setGenres] = useState([]);
     const [festivalPasses, setFestivalPasses] = useState([]);
     const [artists, setArtists] = useState([]);
 
@@ -20,12 +21,19 @@ export default function EventPage({ attractions }) {
             const apiKey = "4P5afjX98PHm5yhdSLbee6G9PVKAQGB7";
             const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&locale=*&attractionId=${attraction.id}`;
 
-            //Chat gpt, samma metod som i app.jsx
+            //Chat gpt, samma metod som i app.jsx nr1
             try {
                 const response = await fetch(url);
                 const data = await response.json();
 
                 const events = data._embedded?.events || [];
+
+                const genres = events
+                    .map(event => event.classifications?.[0]?.genre?.name)
+                    .filter(genre => genre && genre !== 'Undefined'); //Chatgpt visade hur man filtrerar bort undefined men eftersom det inte var ett värde så var jag tvungen att sätta det som en string. nr 3
+
+                const singleGenres = [...new Set(genres)]; //chatgpt nr 4
+                setGenres(singleGenres.length > 0 ? singleGenres : ["Ingen genre tilgjengelig"]);
 
                 const passes = events.map(event => ({
                     id:event.id,
@@ -61,6 +69,12 @@ export default function EventPage({ attractions }) {
                 <article>
                     
                     <h3>Sjanger: </h3>
+
+                    <ul>
+                        {genres.map((genre, index) => (
+                            <li key={index}>{genre}</li>
+                        ))}
+                    </ul>
 
                 </article>
 
