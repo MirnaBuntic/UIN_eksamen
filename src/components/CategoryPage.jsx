@@ -55,11 +55,13 @@ export default function CategoryPage () {
     fetchData();
     }, [slug, filters]);
 
+    //https://handsonreact.com/docs/state#:~:text=Setting%20state%20based%20on%20prior%20state%20requires%20passing%20a%20function,updater%20function%20(setX%20function).
+    //https://stackoverflow.com/questions/64104801/change-the-state-based-on-the-previous-state-with-react-hooks
     const handleChange = (e) => {
       const {name, value} = e.target;
       setFilters((prev) => ({...prev, [name]: value}));
     };
-    //husk kilde på prev
+    
 
     const toggleWishlist = (id) => {
       setWishlist((prev) =>
