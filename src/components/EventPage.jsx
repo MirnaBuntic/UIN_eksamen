@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ArtistCard from "./ArtistCard";
 import EventCard from "./EventCard";
+import "../styles/artister.scss"
 
 export default function EventPage({ attractions }) {
 
@@ -108,7 +109,7 @@ export default function EventPage({ attractions }) {
             )}
 
             {artists.length > 0 && (
-                <section>
+                <section className="artister">
                     <h2>Artister:</h2>
                     <ul>
                         {artists.map((artist) => (
