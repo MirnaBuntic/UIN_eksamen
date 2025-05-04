@@ -89,18 +89,16 @@ export default function EventPage({ attractions }) {
             {festivalPasses.length > 0 && (
                 <section>
                     <h2>Festivalpass:</h2>
-                    <ul>
-                        {festivalPasses.map(pass => (
-                            <li key={pass.id}>
-                                {pass.image && <img src={pass.image} alt={pass.name} />}
-                                <h3>{pass.name}</h3>
-                                <p>{pass.venue}</p>
-                                <p>{pass.date}</p>
-                                <p>Kjøp</p>
-                                <p>Legg til i ønskeliste</p>
-                            </li>
-                        ))}
-                    </ul>
+                    {festivalPasses.map(pass => (
+                        <article key={pass.id}>
+                            {pass.image && <img src={pass.image} alt={pass.name} />}
+                            <h3>{pass.name}</h3>
+                            <p>{pass.venue}</p>
+                            <p>{pass.date}</p>
+                            <p>Kjøp</p>
+                            <p>Legg til i ønskeliste</p>
+                        </article>
+                    ))}
                 </section>
             )}
 
