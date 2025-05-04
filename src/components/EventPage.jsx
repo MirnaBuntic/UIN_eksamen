@@ -99,7 +99,7 @@ export default function EventPage({ attractions }) {
 
 
             {festivalPasses.length > 0 && (
-                <section>
+                <section className="festivaler"> 
                     <h2>Festivalpass:</h2>
                     {festivalPasses.map(pass => (
                         <EventCard key={pass.id} event={pass} />
