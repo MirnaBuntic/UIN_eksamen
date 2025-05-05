@@ -56,7 +56,7 @@ export default function Home({ attractions }) {
 
                 <h3>Hva skjer i {city}</h3>
 
-                <div>
+                <div className="Oslo">
                     {events.length > 0 ? (
                         events.map((event) => (
                             <EventCard key={event.id} attraction={event} />
