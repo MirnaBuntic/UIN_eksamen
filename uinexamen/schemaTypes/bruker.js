@@ -1,0 +1,37 @@
+export default {
+    name: 'bruker',
+    type: 'document',
+    title: 'Bruker',
+    fields: [
+        {
+            name: 'name',
+            type: 'string',
+            title: 'Navn',
+        },
+        {
+            name: 'gender',
+            type: 'string',
+            title: 'Kjønn',
+            options: {
+                list: ['Mann', 'Kvinne', 'Annet'],
+            },
+        },
+        {
+            name: 'age',
+            type: 'number',
+            title: 'Alder',
+        },
+        {
+            name: 'previousPurchases',
+            type: 'array',
+            title: 'Mine kjøp',
+            of: [{ type: 'reference', to: [{ type: 'event' }] }],
+        },
+        {
+            name: 'wishList',
+            type: 'array',
+            title: 'Min ønskeliste',
+            of: [{ type: 'reference', to: [{ type: 'event' }] }],
+        },
+    ],
+};
