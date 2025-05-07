@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import CategoryPage from "./components/CategoryPage";
 import EventPage from "./components/EventPage";
 import Dashboard from "./components/Dashboard";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function App() {
   const [attractions, setAttractions] = useState([]);

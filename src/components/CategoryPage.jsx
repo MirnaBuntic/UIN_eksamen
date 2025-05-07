@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CategoryCard from "./CategoryCard";
-import categories from "./DataCategory"; // value is never read!!
+
 
 export default function CategoryPage () {
   const { slug } = useParams ();
 
-  
+  const [attractions, setAttractions] =useState([]);
   const [events, setEvents] =useState([]);
-  const [filters, setFilters] = useState({
-    keyword: "",
-    city: "",
-    country: "",
-    date: "",
-  });
+  const [venues, setVenues] = useState([]);
 
   const [wishlist, setWishlist] = useState ([]);
 
@@ -22,45 +17,35 @@ export default function CategoryPage () {
 
   useEffect(() => {
     const fetchData = async () => {
-      let url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&locale=*&size=20`;
       
-      if (filters.keyword || slug) {
-        url +=`&keyword=${filters.keyword || slug}`;
-      } 
+        const url ="https://app.ticketmaster.com/discovery/v2/suggest";
+        const params = `apikey=${apiKey}&locale=*&keyword=${slug || ""}`;
 
-      //brukt chatgpt til å legge til keyword, lagt til i kilder nr2
-      url += `&classificationName=Music, Festival`;
+        try {
+          const attractionsRes = await fetch (`${url}?${params}&resource=attractions`);
+          const attractionsData = await attractionsRes.json();
+          setAttractions(attractionsData._embedded?.attractions || []);
 
-      if (filters.city) {
-        url +=`&city=${filters.city}`;
+          const venuesRes = await fetch (`${url}?${params}&resource=venues`);
+          const venueData = await venuesRes.json();
+          setVenues(venueData._embedded?.venues || []);
+
+          const eventsRes = await fetch (
+           `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&locale=*&keyword=${slug || ""}`
+          );
+          const eventData= await eventsRes.json();
+          console.log("event data:", eventData);
+          setEvents(eventData._embedded?.events || []);
+        } catch (error) {
+          console.error("feil ved henting via suggest:", error)
+        };
+
+
+
       }
 
-      if (filters.country) {
-        url +=`&countryCode=${filters.country}`;
-      } 
-
-      if (filters.date) {
-        url +=`&startDateTime=${filters.date}T00:00:00Z`;
-      }
-
-      try {
-        const res = await fetch (url);
-        const data= await res.json();
-        setEvents(data._embedded?.events || []);
-      } catch (error) {
-        console.error("feil ved henting av data:", error);
-      }
-    };
-
-    fetchData();
-    }, [slug, filters]);
-
-    //https://handsonreact.com/docs/state#:~:text=Setting%20state%20based%20on%20prior%20state%20requires%20passing%20a%20function,updater%20function%20(setX%20function).
-    //https://stackoverflow.com/questions/64104801/change-the-state-based-on-the-previous-state-with-react-hooks
-    const handleChange = (e) => {
-      const {name, value} = e.target;
-      setFilters((prev) => ({...prev, [name]: value}));
-    };
+        fetchData();
+    }, [slug]);
     
 
     const toggleWishlist = (id) => {
@@ -72,51 +57,48 @@ export default function CategoryPage () {
   return (
     <>
 
-      <h1>{slug.toUpperCase()}</h1>
+      <h1>{slug?.toUpperCase() || "Kategori"}</h1>
 
-      <div className="filters">
-        <input 
-          type="text"
-          name="keyword"
-          placeholder="Søk her"
-          value={filters.keyword}
-          onChange={handleChange}
-        />
+      <section>
+        <h2>Attraksjoner</h2>
+        <div>
+          {attractions.map((item) => (
+            <CategoryCard
+            key={item.id}
+            item={item}
+            isSaved={wishlist.includes(item.id)}
+            onSave={() => toggleWishlist(item.id)}
+            />
+          ))}
+        </div>
+      </section>
 
-      <input 
-        type="text"
-        name="city"
-        placeholder="By"
-        value={filters.city}
-        onChange={handleChange}
-      />
+      <section>
+        <h2>Arrangementer</h2>
+        <div>
+          {events.map((item) => (
+            <CategoryCard
+            key={item.id}
+            item={item}
+            isSaved={wishlist.includes(item.id)}
+            onSave={() => toggleWishlist(item.id)}
+            />
+          ))}
+        </div>
+      </section>
 
-        <input 
-          type="text"
-          name="country"
-          placeholder="Landskode (eks. NO)"
-          value={filters.country}
-          onChange={handleChange}
-        />
-
-        <input 
-          type="date"
-          name="date"
-          placeholder="00.00.0000"
-          value={filters.date}
-          onChange={handleChange}
-        />
-      </div>
-
-      <section className="flex-section">
-        {events.map((item) => (
-        <CategoryCard
-        key={item.id}
-        item={item}
-        isSaved={wishlist.includes(item.id)}
-        onSave={() => toggleWishlist(item.id)}
-        />
-      ))}
+      <section>
+        <h2>Spillesteder</h2>
+        <div>
+          {venues.map((item) => (
+            <CategoryCard
+            key={item.id}
+            item={item}
+            isSaved={wishlist.includes(item.id)}
+            onSave={() => toggleWishlist(item.id)}
+            />
+          ))}
+        </div>
       </section>
 
     </>
