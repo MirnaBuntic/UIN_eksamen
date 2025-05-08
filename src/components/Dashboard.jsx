@@ -12,7 +12,18 @@ export default function Dashboard() {
     useEffect(() => {
         const getUsers = async () => {
             try {
-                const data = await client.fetch(`*[_type == "bruker"]`);
+                const data = await client.fetch(`*[_type == "bruker"]{
+                    _id,
+                    username,
+                    name,
+                    email,
+                    age,
+                    image {
+                        asset -> {
+                            url
+                        }
+                    }
+                }`);
                 setAllUsers(data);
             } catch (error) {
                 console.error("Skjedde noe feil ved fetch av brukene", error);
@@ -26,7 +37,18 @@ export default function Dashboard() {
         const storedUserId = localStorage.getItem("userId");
 
         if (storedLogin === "true" && storedUserId) {
-            client.fetch(`*[_type == "bruker" && _id == "${storedUserId}"][0]`).then((user) => {
+            client.fetch(`*[_type == "bruker" && _id == "${storedUserId}"][0]{
+                _id,
+                username,
+                name,
+                email,
+                age,
+                image {
+                    asset -> {
+                        url
+                    }
+                }
+            }`).then((user) => {
                 if (user) {
                     setIsLoggedIn(true);
                     setCurrentUser(user);
@@ -87,7 +109,10 @@ export default function Dashboard() {
             ) : ( 
                 <section>
                     <h1>Min side</h1>
-                    <p>Du er nå logget inn som {currentUser?.name}</p>
+                    <p>{currentUser?.name}</p>
+                    {currentUser?.image?.asset?.url && <img src={currentUser?.image?.asset?.url} alt={currentUser?.name} />}
+                    <p>Email: {currentUser?.email}</p>
+                    <p>Alder: {currentUser?.age} år</p>
                     <button onClick={handleLogout}>Logg ut</button>
                 </section>
             )}
