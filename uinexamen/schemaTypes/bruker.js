@@ -15,6 +15,19 @@ export default {
             title: 'Navn',
         },
         {
+            name: 'email',
+            type: 'string',
+            title: 'E-post'
+        },
+        {
+            name: 'image',
+            type: 'image',
+            title: 'Profilbilde',
+            options: {
+                hotspot: true,
+            },
+        },
+        {
             name: 'gender',
             type: 'string',
             title: 'Kjønn',
