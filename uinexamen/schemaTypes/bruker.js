@@ -4,6 +4,12 @@ export default {
     title: 'Bruker',
     fields: [
         {
+            name: "username",
+            title: "Brukernavn",
+            type: "string",
+            validation: (Rule) => Rule.required() //Chatgpt nr6
+        },
+        {
             name: 'name',
             type: 'string',
             title: 'Navn',
