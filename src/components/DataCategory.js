@@ -2,7 +2,7 @@ const categories = [
     {
         id: 1,
         name: "Musikk",
-        slug: "musikk"
+        slug: "music"
     },
     {
         id: 2,
@@ -12,7 +12,7 @@ const categories = [
     {
         id: 3,
         name: "Teater/Show",
-        slug: "teater"
+        slug: "Arts & Theatre"
     }
 ];
 
