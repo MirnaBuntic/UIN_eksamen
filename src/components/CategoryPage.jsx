@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CategoryCard from "./CategoryCard";
+import categories from "./DataCategory";
+import CategoryCardTwo from "./CategoryTwoCard";
 
+
+
+
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter 
+//https://react.dev/learn/choosing-the-state-structure#forms
+//https://legacy.reactjs.org/docs/hooks-state.html
 
 
 export default function CategoryPage () {
   const { slug } = useParams ();
+
+  const categoryName = categories.find(c => c.slug === slug)?.name || "Kategori";
 
   const [attractions, setAttractions] =useState([]);
   const [events, setEvents] =useState([]);
@@ -58,13 +68,13 @@ export default function CategoryPage () {
   return (
     <>
 
-      <h1>{slug?.toUpperCase() || "Kategori"}</h1>
+      <h1>{categoryName}</h1>
 
       <section>
         <h2>Attraksjoner</h2>
         <div>
           {attractions.map((item) => (
-            <CategoryCard
+            <CategoryCardTwo
             key={item.id}
             item={item}
             isSaved={wishlist.includes(item.id)}
@@ -99,7 +109,7 @@ export default function CategoryPage () {
         <h2>Spillesteder</h2>
         <div>
           {venues.map((item) => (
-            <CategoryCard
+            <CategoryCardTwo
             key={item.id}
             item={item}
             isSaved={wishlist.includes(item.id)}
