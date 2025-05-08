@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CategoryCard from "./CategoryCard";
-import categories from "./DataCategory";
+
 
 
 export default function CategoryPage () {
@@ -54,15 +54,11 @@ export default function CategoryPage () {
       prev.includes(id)? prev.filter((x) => x !== id) : [...prev, id]
     );
     };
-
-    const categoryName = categories.find((category) => category.slug === slug)?.name || "Kategori"
     
   return (
     <>
 
-      <h1>
-        {categoryName}
-      </h1>
+      <h1>{slug?.toUpperCase() || "Kategori"}</h1>
 
       <section>
         <h2>Attraksjoner</h2>
