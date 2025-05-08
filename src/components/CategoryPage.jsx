@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CategoryCard from "./CategoryCard";
+import categories from "./DataCategory";
 
 
 export default function CategoryPage () {
@@ -21,6 +22,7 @@ export default function CategoryPage () {
         const url ="https://app.ticketmaster.com/discovery/v2/suggest";
         const params = `apikey=${apiKey}&locale=*&keyword=${slug || ""}`;
 
+  
         try {
           const attractionsRes = await fetch (`${url}?${params}&resource=attractions`);
           const attractionsData = await attractionsRes.json();
@@ -30,11 +32,10 @@ export default function CategoryPage () {
           const venueData = await venuesRes.json();
           setVenues(venueData._embedded?.venues || []);
 
-          const eventsRes = await fetch (
-           `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&locale=*&keyword=${slug || ""}`
-          );
-          const eventData= await eventsRes.json();
-          console.log("event data:", eventData);
+          const urlEvents = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&locale=*&size=20&classificationName=${slug || ""}`;
+
+          const eventRes = await fetch (urlEvents);
+          const eventData = await eventRes.json();
           setEvents(eventData._embedded?.events || []);
         } catch (error) {
           console.error("feil ved henting via suggest:", error)
@@ -53,11 +54,15 @@ export default function CategoryPage () {
       prev.includes(id)? prev.filter((x) => x !== id) : [...prev, id]
     );
     };
+
+    const categoryName = categories.find((category) => category.slug === slug)?.name || "Kategori"
     
   return (
     <>
 
-      <h1>{slug?.toUpperCase() || "Kategori"}</h1>
+      <h1>
+        {categoryName}
+      </h1>
 
       <section>
         <h2>Attraksjoner</h2>
@@ -79,7 +84,14 @@ export default function CategoryPage () {
           {events.map((item) => (
             <CategoryCard
             key={item.id}
-            item={item}
+            item={{
+              ...item, 
+              date: item.dates?.start?.localeDate,
+              time: item.dates?.start?.localTime,
+              venue: item._embedded?.venues?.[0]?.name,
+              city: item._embedded?.venues?.[0]?.city?.name,
+              country: item._embedded?.venues?.[0]?.country?.name
+            }}
             isSaved={wishlist.includes(item.id)}
             onSave={() => toggleWishlist(item.id)}
             />
