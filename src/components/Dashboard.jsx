@@ -1,50 +1,94 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { client } from "../sanityClient";
 
 export default function Dashboard() {
     
     const [userLogin, setUserLogin] = useState({});
+    const [allUsers, setAllUsers] = useState([]);
+    const [currentUser, setCurrentUser] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        const getUsers = async () => {
+            try {
+                const data = await client.fetch(`*[_type == "bruker"]`);
+                setAllUsers(data);
+            } catch (error) {
+                console.error("Skjedde noe feil ved fetch av brukene", error);
+            }
+        };
+        getUsers();
+    }, []);
+
+    useEffect(() => {
+        const storedLogin = localStorage.getItem("login");
+        const storedUserId = localStorage.getItem("userId");
+
+        if (storedLogin === "true" && storedUserId) {
+            client.fetch(`*[_type == "bruker" && _id == "${storedUserId}"][0]`).then((user) => {
+                if (user) {
+                    setIsLoggedIn(true);
+                    setCurrentUser(user);
+                }
+            });
+        }
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUserLogin((prev) => ({...prev, [name]: value}));
     };
 
-    const handleLogin = (e) => {
+    const handleClick = (e) => {
         e.preventDefault();
-        setIsLoggedIn(true);
+        const matchedUser = allUsers.find(
+            (user) => user.username === userLogin.username
+        );
+
+        if (matchedUser) {
+            setIsLoggedIn(true);
+            setCurrentUser(matchedUser);
+            localStorage.setItem("login", "true");
+            localStorage.setItem("userId", matchedUser._id);
+            setError("");
+        } else {
+            setError("Finner inget konto koblet till dette brukernavn");
+        }
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem("login");
+        localStorage.removeItem("userId");
+        setIsLoggedIn(false);
+        setCurrentUser(null);
     };
 
     return (
        <div>
             {!isLoggedIn ? (
                 <section>
-                    <h>Logg inn</h>
+                    <h2>Logg inn</h2>
                     <form>
                         <label>
                             Brukernavn
                             <input 
                             type="text"
                             name="username"
-                            placeholder="Ola Nordmann"
+                            placeholder="olaNordmann123"
                             onChange={handleChange}
                             />
                         </label>
-                        <label>
-                            Passord
-                            <input
-                            type="password"
-                            name="password"
-                            onChange={handleChange}
-                            />
-                        </label>
-                        <button onClick={handleLogin}>Logg inn</button>
+
+                        <button onClick={handleClick}>Logg inn</button>
                     </form>
+                    {error && <p>{error}</p>}
                 </section>
             ) : ( 
                 <section>
                     <h1>Min side</h1>
-                    <p>Du er nå logget inn som {userLogin.username}</p>
+                    <p>Du er nå logget inn som {currentUser?.name}</p>
+                    <button onClick={handleLogout}>Logg ut</button>
                 </section>
             )}
        </div>
