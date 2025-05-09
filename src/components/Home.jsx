@@ -58,13 +58,13 @@ export default function Home({ attractions }) {
 
                 <h3>Hva skjer i {city}</h3>
 
-                <div>
+                <div className="event_city">
                     {events.length > 0 ? (
                         events.map((event) => (
-                            <EventCard key={event.id} attraction={event} />
+                            <EventCard key={event.id} attraction={event} showMoreLink={false}/>
                         ))
                     ) : (
-                        <div className="event">
+                        <div>
                         <p>Ingen events funnet i {city}.</p>
                        </div>
                     )}
