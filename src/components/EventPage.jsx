@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ArtistCard from "./ArtistCard";
 import EventCard from "./EventCard";
-import "../styles/artister.scss"
+import "../styles/citycard.scss"
 
 export default function EventPage({ attractions }) {
 

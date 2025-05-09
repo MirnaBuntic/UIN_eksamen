@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import EventCard from "./EventCard";
+import '../styles/citycard.scss'
+
 
 export default function Home({ attractions }) {
 
@@ -43,7 +45,7 @@ export default function Home({ attractions }) {
                 ))}
             </section>
 
-            <section className="city_card">
+            <section>
                 <h2>Hva skjer i verdens storbyer!</h2>
 
                 <div>
