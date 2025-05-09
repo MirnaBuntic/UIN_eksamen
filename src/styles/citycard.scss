@@ -11,18 +11,13 @@ button{
   border-color 0.25s;
   margin: 0.4rem;
 }
-
-.oslo{
-    width: 250px;
-    height: 150px;
-    object-fit: cover;
-
-    p{
-
-    }
+.city_card {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+    background-color: lightsalmon;
 }
-
-
 
 
 p{

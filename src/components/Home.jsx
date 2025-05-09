@@ -43,7 +43,7 @@ export default function Home({ attractions }) {
                 ))}
             </section>
 
-            <section>
+            <section className="city_card">
                 <h2>Hva skjer i verdens storbyer!</h2>
 
                 <div>
@@ -56,15 +56,15 @@ export default function Home({ attractions }) {
 
                 <h3>Hva skjer i {city}</h3>
 
-                <div className="Oslo">
+                <div>
                     {events.length > 0 ? (
                         events.map((event) => (
                             <EventCard key={event.id} attraction={event} />
                         ))
                     ) : (
-                        
-                        <p className="event">Ingen events funnet i {city}.</p>
-                       
+                        <div className="event">
+                        <p>Ingen events funnet i {city}.</p>
+                       </div>
                     )}
                 </div>
             </section>

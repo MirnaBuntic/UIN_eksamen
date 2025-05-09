@@ -10,10 +10,12 @@ body {
 
 article {
     margin: 2rem;
+    width: 350px;
+    height: 350px;
+
 
     img {
-        width: 100%;
-        max-width: 250px;
+        width: 350px;
         height: auto;
         aspect-ratio: 5 / 3;
         object-fit: cover;
@@ -121,11 +123,20 @@ nav ul {
     padding: 1rem;
 
     article {
+        border: 6rem;
+        border: #000;
+        box-shadow: 0 3px 10px black;
+        border-radius: 10px;
+
         a {
-            color: #000;
+            color: #ffffff;
+            background-color: #000;
             font-weight: bold;
             padding: 0.5rem;
             text-decoration: none;
+        }
+        h3 {
+            color: #000;
         }
     }
 }
@@ -148,6 +159,7 @@ nav ul {
 
         h1 {
             width: 100%;
+            color: #000;
         }
     }
 
