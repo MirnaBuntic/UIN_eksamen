@@ -48,7 +48,7 @@ export default function Home({ attractions }) {
             <section>
                 <h2>Hva skjer i verdens storbyer!</h2>
 
-                <div>
+                <div className="button-container">
                     {cities.map((cityName) => (
                         <button key={cityName} onClick={() => setCity(cityName)}>
                             {cityName}
