@@ -1,13 +1,11 @@
 .event_city {
     display: grid;
-    grid-template-columns: 1fr; // Mobile-first: 1 column
+    grid-template-columns: 1fr;
     gap: 1rem;
     padding: 1rem;
-    background-color: #e81e1e;
 }
 
 
-// === Styling for Individual Event Card ===
 .event-card {
     border: 1px solid #000000;
     padding: 1rem;
@@ -54,9 +52,8 @@
 }
 
 
-// For desktops and larger, we want more cards per row
 @media (min-width: 1024px) {
     .event_city {
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); // 3+ columns for larger screens
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     }
 }
