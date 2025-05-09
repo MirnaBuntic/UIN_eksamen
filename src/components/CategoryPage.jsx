@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import CategoryCard from "./CategoryCard";
 import categories from "./DataCategory";
 import CategoryCardTwo from "./CategoryTwoCard";
+import "../styles/header.scss"
+
 
 
 

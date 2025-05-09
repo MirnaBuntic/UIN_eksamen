@@ -7,6 +7,7 @@ import EventPage from "./components/EventPage";
 import Dashboard from "./components/Dashboard";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
+
 export default function App() {
   const [attractions, setAttractions] = useState([]);
 

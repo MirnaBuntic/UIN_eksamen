@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import EventCard from "./EventCard";
 import '../styles/citycard.scss'
+import "../styles/header.scss"
+
 
 
 export default function Home({ attractions }) {

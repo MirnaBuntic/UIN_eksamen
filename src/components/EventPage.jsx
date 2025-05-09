@@ -3,6 +3,10 @@ import { useState, useEffect } from "react";
 import ArtistCard from "./ArtistCard";
 import EventCard from "./EventCard";
 import "../styles/citycard.scss"
+import "../styles/header.scss"
+
+
+
 
 export default function EventPage({ attractions }) {
 
