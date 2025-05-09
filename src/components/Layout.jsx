@@ -3,13 +3,13 @@ import '../styles/header.scss'
 
 
 export default function Layout({ children }) {
-    return (
-        <>
-          <Header />
+  return (
+    <>
+      <Header />
 
-          <main>
-            {children}
-          </main>
-        </>
-    );
+      <main>
+        {children}
+      </main>
+    </>
+  );
 }
