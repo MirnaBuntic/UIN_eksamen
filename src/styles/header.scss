@@ -1,107 +1,166 @@
-.header{
-    display: flex;
-    flex-wrap: wrap;
-    background-color: #e6d8d4;
-    text-align: center;
-    text-decoration: auto;
-    width: 100%;
-    justify-content: space-between;
-    width: 100%;
-    justify-content: center;
-
-a {
-display: flex;
-color: black;
-font-weight: bold;
-
-}
-nav{
-    display: flex;
-
-
-    ul{
-        display: flex;
-        list-style: none;
-        padding: 0;
-        margin: 1rem;
-    }
-
-    li{
-        margin: 0 15px;
-        font-weight: bold;
-    }
-}
-
-}
-
-
-
-article a{
-    border: 2px solid #000;
-    background-color: #c2abc3;
-    justify-content: center;
-}
-
-.festivaler{
+body {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-
-    
-
-        article{
-
-            a{
-                color: #000;
-                font-weight: bold;
-                padding:0.5rem;
-
-            }
-        }
-    
-
-}
-
-
-
-
-body{
-    display: flex;
+    align-items: center;
     text-align: center;
-    color: #956996;
     background-color: #e6d8d4;
+    margin: 0;
+    font-family: sans-serif;
 }
 
+article {
+    margin: 2rem;
 
-article{
-    margin: 50px;
-
-
-    img{
-        width: 250px;
-        height: 150px;
+    img {
+        width: 100%;
+        max-width: 250px;
+        height: auto;
+        aspect-ratio: 5 / 3;
         object-fit: cover;
     }
+
+    a {
+        border: 2px solid #000;
+        color: #000;
+        font-weight: bold;
+        padding: 0.5rem;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 1rem;
+    }
 }
 
-@media (min-width:800px){
+.header {
+    display: flex;
+    flex-direction: row;
+    background-color: #e6d8d4;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    width: 100%;
 
-    .header{
-        justify-content: space-between;
-
-        a{
-            margin:2rem;
-        }
-
-
+    a {
+        color:#000;
+        font-weight: bold;
+        text-decoration: none;
+        margin: 0.5rem;
     }
-    .festivaler{
-        flex-direction: row !important; 
+
+    #logo {
+        font-size: 2em;
+    }
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;  
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    position: relative; 
+}
+
+nav ul {
+    display: flex;
+    gap: 1rem;                 
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;    
+}
+
+.nav_category_wrapper {
+    display: flex; 
+    justify-content: center; 
+    gap: 1rem;
+    width: 100%;  
+    flex: 1; 
+}
+
+.nav_category {
+    padding: 0.5rem 1rem;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; 
+}
+
+.nav_category:hover {
+    color: white; 
+    background-color: #a36fa3;
+
+}
+
+
+.nav_logginn {
+    padding: 0.5rem 1rem;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    white-space: nowrap; 
+    margin-left: auto;  
+}
+
+
+.nav_logginn:hover {
+    background-color: #a36fa3;
+    color: white;
+}
+
+.festivaler {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+
+    article {
+        a {
+            color: #000;
+            font-weight: bold;
+            padding: 0.5rem;
+            text-decoration: none;
+        }
+    }
+}
+
+
+@media (min-width: 800px) {
+    .header {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+
+        a {
+            margin: 0 1rem;
+        }
+    }
+
+    .festivaler {
+        flex-direction: row;
         flex-wrap: wrap;
-        
-        h1{
+
+        h1 {
             width: 100%;
         }
+    }
 
+    .nav_category_wrapper {
+        justify-content: center;
+        width: auto;
+    }
+
+    .nav_category {
+        padding: 0.75rem 1.5rem;
+    }
+
+    .nav_logginn {
+        padding: 0.75rem 2rem;
     }
 }

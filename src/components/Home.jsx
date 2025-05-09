@@ -62,7 +62,9 @@ export default function Home({ attractions }) {
                             <EventCard key={event.id} attraction={event} />
                         ))
                     ) : (
-                        <p>Ingen events funnet i {city}.</p>
+                        
+                        <p className="event">Ingen events funnet i {city}.</p>
+                       
                     )}
                 </div>
             </section>
