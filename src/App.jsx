@@ -45,7 +45,7 @@ export default function App() {
         <Route path="/" element={<Home attractions={attractions} />}></Route>
         <Route path="/event/:slug" element={<EventPage attractions={attractions} />}></Route>
         <Route path="/category/:slug" element={<CategoryPage attractions={attractions}/>}></Route>
-        <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/dashboard" element={<Dashboard attractions={attractions}/>}></Route>
       </Routes>
    </Layout>
   )

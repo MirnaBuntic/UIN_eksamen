@@ -108,12 +108,22 @@ export default function Dashboard() {
                 </section>
             ) : ( 
                 <section>
-                    <h1>Min side</h1>
-                    <p>{currentUser?.name}</p>
-                    {currentUser?.image?.asset?.url && <img src={currentUser?.image?.asset?.url} alt={currentUser?.name} />}
-                    <p>Email: {currentUser?.email}</p>
-                    <p>Alder: {currentUser?.age} år</p>
-                    <button onClick={handleLogout}>Logg ut</button>
+                    <article>
+                        <h1>Min side</h1>
+                        <h2>{currentUser?.name}</h2>
+                        {currentUser?.image?.asset?.url && <img src={currentUser?.image?.asset?.url} alt={currentUser?.name} />}
+                        <p>Email: {currentUser?.email}</p>
+                        <p>Alder: {currentUser?.age} år</p>
+                        <button onClick={handleLogout}>Logg ut</button>
+                    </article>
+                   
+                   <article>
+                        <h2>Mine kjøp</h2>
+                   </article>
+
+                   <article>
+                        <h2>Min ønskeliste</h2>
+                   </article>
                 </section>
             )}
        </div>
