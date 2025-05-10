@@ -53,6 +53,13 @@ button {
     background-color: #fff;
     box-shadow: 0 4px 8px black;
 
+    a{
+        max-width: 200px;
+        min-width: 200px;
+        max-height: 100px;
+        min-height: 50px;
+    }
+
     
 
     &:hover {
