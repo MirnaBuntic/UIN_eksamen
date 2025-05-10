@@ -10,10 +10,13 @@ body {
 h3 {
     color: #000000;
     font-size: 1.5rem;
+    margin-bottom: 0;
+    
 }
 h2{
     color: #000;
     font-size: 2rem;
+    margin-top: 5rem;
 }
 
 article {
@@ -133,6 +136,8 @@ nav ul {
     align-items: center;
 h1{
     color: #000;
+    margin-bottom: 0;
+    
 }
 
 
@@ -151,6 +156,7 @@ h1{
         }
         h3 {
             color: #000;
+            margin-bottom: 2rem;
         }
     }
 }
