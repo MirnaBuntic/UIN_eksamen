@@ -6,6 +6,8 @@ import CategoryPage from "./components/CategoryPage";
 import EventPage from "./components/EventPage";
 import Dashboard from "./components/Dashboard";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import "./styles/app.scss"
+
 
 
 export default function App() {
