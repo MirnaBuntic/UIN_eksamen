@@ -26,7 +26,6 @@ article {
         width: 100%;
         max-width: 350px;
         height: auto;
-        aspect-ratio: 5 / 3;
         object-fit: cover;
     }
 
@@ -57,7 +56,7 @@ article {
         color:#000;
         font-weight: bold;
         text-decoration: none;
-        margin: 0.5rem;
+       
     }
 
     #logo {
@@ -71,7 +70,7 @@ nav {
     align-items: center;
     width: 100%;
     padding: 1rem;
-    position: relative; 
+ 
 }
 
 nav ul {
@@ -86,9 +85,8 @@ nav ul {
 .nav_category_wrapper {
     display: flex; 
     justify-content: center; 
-    gap: 1rem;
     width: 100%;  
-    flex: 1; 
+   
 }
 
 .nav_category {
@@ -133,6 +131,8 @@ nav ul {
     flex-direction: column;
     gap: 2rem;
     align-items: center;
+
+
 
     article {
         border: 6rem;

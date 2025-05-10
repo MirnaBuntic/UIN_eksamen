@@ -1,32 +1,50 @@
-.event_city {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 1rem;
-}
+
 .button-container {
     display: flex;
-    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 1rem;
+    gap: 0.5rem;
     justify-content: center;
-    margin-top: 1rem; 
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
 }
 
 button {
     border-radius: 8px;
     border: 1px solid transparent;
-    padding: 0.9em 1.8em;
-    font-size: 1em;
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
     background-color: #000000;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+ 
 
     &:hover {
         background-color: #a36fa3; 
     }
 }
 
+.event_city{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
 
+}
+
+.event-card-container{
+    width: 300px;
+    height: 400px;
+    box-sizing: border-box;
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .event-card {
     border: 1px solid #000000;
@@ -34,7 +52,8 @@ button {
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 4px 8px black;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    
 
     &:hover {
         transform: translateY(-5px);
@@ -73,4 +92,14 @@ button {
         }
     }
 }
+.card-wrapper, .event_city, .festivaler{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
 
+}

@@ -16,8 +16,6 @@ export default function Nav() {
             <Link to="/category/teater-show" className="nav_category">
               Teater/Show
             </Link>
-          </div>
-          <div>
             <Link to="/dashboard" className="nav_logginn">
               Logg inn
             </Link>
