@@ -65,6 +65,8 @@ main{
     }
 
     .card{
+        flex-direction: column !important;
+
         h3{
             width: 100%;
         }
