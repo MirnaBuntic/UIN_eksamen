@@ -4,6 +4,7 @@ import CategoryCard from "./CategoryCard";
 import categories from "./DataCategory";
 import CategoryCardTwo from "./CategoryTwoCard";
 import "../styles/header.scss"
+import "../styles/categorypage.scss"
 
 
 
@@ -72,7 +73,7 @@ export default function CategoryPage () {
 
       <h1>{categoryName}</h1>
 
-      <section>
+      <section className="Attraction">
         <h2>Attraksjoner</h2>
         <div>
           {attractions.map((item) => (
@@ -86,7 +87,7 @@ export default function CategoryPage () {
         </div>
       </section>
 
-      <section>
+      <section className="Arrangement">
         <h2>Arrangementer</h2>
         <div>
           {events.map((item) => (
@@ -107,7 +108,7 @@ export default function CategoryPage () {
         </div>
       </section>
 
-      <section>
+      <section className="Venues">
         <h2>Spillesteder</h2>
         <div>
           {venues.map((item) => (
