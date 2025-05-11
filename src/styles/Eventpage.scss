@@ -3,10 +3,17 @@
    
 }
 
+main{
+    h2{
+        margin-top: 3rem;
+        margin-bottom: 4rem;
+    }
+}
 
 .Sjanger{
 
     text-align: left;
+    margin-bottom: 5rem;
 
     ul{
         padding: 0;
@@ -49,14 +56,32 @@
         padding:0;
         li{
             list-style: none;
+            margin: 4rem auto;
             figure{
+                min-width: 200px;
                 img{
                     width: 100%;
                     max-width: 350px;
+                    min-width: 350px;
+                    max-height: 300px;
+                    min-height: 300px;
                     height: auto;
                     object-fit: cover;
                 }
+                figcaption{
+                    color:black;
+                    font-weight: bold;
+                }
             }
+        }
+    }
+}
+@media (min-width: 800px) {
+    .artister{
+        ul{
+            display: flex;
+            flex-wrap:wrap;
+
         }
     }
 }
