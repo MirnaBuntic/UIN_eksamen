@@ -1,0 +1,89 @@
+*{
+    box-sizing: border-box;
+   
+}
+
+main{
+    h2{
+        margin-top: 3rem;
+        margin-bottom: 4rem;
+    }
+}
+
+.Sjanger{
+
+    text-align: left;
+    margin-bottom: 5rem;
+
+    ul{
+        padding: 0;
+        li{
+            list-style:none;
+            color: black;
+        }
+    }
+
+}
+
+.SoMe{
+
+    h3{
+        text-align: left;
+    }
+
+    ul{
+        display: flex;
+        padding: 0;
+        li{
+            list-style: none;
+            padding: 1rem;
+
+            a{
+                border-radius: 10px;
+            }
+
+            
+        }
+    }
+}
+
+.festivaler{
+    h2{
+        margin:0;
+    }
+}
+
+.artister{
+    ul{
+        padding:0;
+        li{
+            list-style: none;
+            margin: 4rem auto;
+            figure{
+                min-width: 200px;
+                img{
+                    width: 100%;
+                    max-width: 350px;
+                    min-width: 350px;
+                    max-height: 300px;
+                    min-height: 300px;
+                    height: auto;
+                    object-fit: cover;
+                }
+                figcaption{
+                    color:black;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+@media (min-width: 800px) {
+    .artister{
+        ul{
+            display: flex;
+            flex-wrap:wrap;
+
+        }
+    }
+}

@@ -1,3 +1,5 @@
+import "../styles/header.scss"
+
 import React from "react";
 
 export default function CategoryCardTwo ({item, isSaved, onSave}) {

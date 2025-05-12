@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import { client } from "../sanityClient";
+import '../styles/dashboard.scss'
+import "../styles/header.scss"
+
+
 
 export default function Dashboard() {
     
@@ -75,7 +79,7 @@ export default function Dashboard() {
             localStorage.setItem("userId", matchedUser._id);
             setError("");
         } else {
-            setError("Finner inget konto koblet till dette brukernavn");
+            setError("Finner inget konto koblet til dette brukernavn");
         }
     };
 
@@ -87,36 +91,46 @@ export default function Dashboard() {
     };
 
     return (
-       <div>
+       <div className="dashboard-container">
             {!isLoggedIn ? (
-                <section>
+                <section className="login-section">
                     <h2>Logg inn</h2>
-                    <form>
-                        <label>
+                    <form className="login-form">
+                        <label className="login-label">
                             Brukernavn
                             <input 
                             type="text"
                             name="username"
                             placeholder="olaNordmann123"
                             onChange={handleChange}
+                            className="login-input"
                             />
                         </label>
 
-                        <button onClick={handleClick}>Logg inn</button>
+                        <button className="login-button" onClick={handleClick}>Logg inn</button>
                     </form>
-                    {error && <p>{error}</p>}
+                    {error && <p className="error-message">{error}</p>}
                 </section>
             ) : ( 
-                <section>
-                    <h1>Min side</h1>
-                    <p>{currentUser?.name}</p>
-                    {currentUser?.image?.asset?.url && <img src={currentUser?.image?.asset?.url} alt={currentUser?.name} />}
-                    <p>Email: {currentUser?.email}</p>
-                    <p>Alder: {currentUser?.age} år</p>
-                    <button onClick={handleLogout}>Logg ut</button>
+                <section className="user-dashboard">
+                    <article className="user-profile">
+                        <h1>Min side</h1>
+                        <h2 className="user-name">{currentUser?.name}</h2>
+                        {currentUser?.image?.asset?.url && <img className="user-image" src={currentUser?.image?.asset?.url} alt={currentUser?.name} />}
+                        <p className="user-email">Email: {currentUser?.email}</p>
+                        <p className="user-age">Alder: {currentUser?.age} år</p>
+                        <button className="logout-button" onClick={handleLogout}>Logg ut</button>
+                    </article>
+                   
+                   <article className="user-purchases">
+                        <h2>Mine kjøp</h2>
+                   </article>
+
+                   <article className="user-wishlist">
+                        <h2>Min ønskeliste</h2>
+                   </article>
                 </section>
             )}
        </div>
     );
-    
 }

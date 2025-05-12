@@ -2,7 +2,13 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ArtistCard from "./ArtistCard";
 import EventCard from "./EventCard";
-import "../styles/artister.scss"
+import "../styles/citycard.scss"
+import "../styles/header.scss"
+import "../styles/Eventpage.scss"
+
+
+
+
 
 export default function EventPage({ attractions }) {
 
@@ -71,7 +77,7 @@ export default function EventPage({ attractions }) {
             <h2>{attraction.name}</h2>
 
             <section>
-                <article>
+                <article className="Sjanger">
                     <h3>Sjanger:</h3>
                     <ul>
                         {genres.map((genre, index) => (
@@ -81,7 +87,7 @@ export default function EventPage({ attractions }) {
                 </article>
 
                 {/*Fick hjälp av chatgpt med användningen av object.keys för att få det som var i console logen synligt på sidan. nr5*/}
-                <article>
+                <article className="SoMe">
                     <h3>Følg oss på sosiale medier:</h3>
                     {Object.keys(socialMedia).length > 0 ? (
                         <ul>

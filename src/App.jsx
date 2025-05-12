@@ -6,6 +6,9 @@ import CategoryPage from "./components/CategoryPage";
 import EventPage from "./components/EventPage";
 import Dashboard from "./components/Dashboard";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import "./styles/app.scss"
+
+
 
 export default function App() {
   const [attractions, setAttractions] = useState([]);
@@ -45,7 +48,7 @@ export default function App() {
         <Route path="/" element={<Home attractions={attractions} />}></Route>
         <Route path="/event/:slug" element={<EventPage attractions={attractions} />}></Route>
         <Route path="/category/:slug" element={<CategoryPage attractions={attractions}/>}></Route>
-        <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/dashboard" element={<Dashboard attractions={attractions}/>}></Route>
       </Routes>
    </Layout>
   )

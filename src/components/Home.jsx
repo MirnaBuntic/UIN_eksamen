@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import EventCard from "./EventCard";
+import '../styles/citycard.scss'
+import "../styles/header.scss"
+
+
 
 export default function Home({ attractions }) {
 
@@ -46,7 +50,7 @@ export default function Home({ attractions }) {
             <section>
                 <h2>Hva skjer i verdens storbyer!</h2>
 
-                <div>
+                <div className="button-container">
                     {cities.map((cityName) => (
                         <button key={cityName} onClick={() => setCity(cityName)}>
                             {cityName}
@@ -56,13 +60,15 @@ export default function Home({ attractions }) {
 
                 <h3>Hva skjer i {city}</h3>
 
-                <div className="Oslo">
+                <div className="event_city">
                     {events.length > 0 ? (
                         events.map((event) => (
-                            <EventCard key={event.id} attraction={event} />
+                            <EventCard key={event.id} attraction={event} showMoreLink={false}/>
                         ))
                     ) : (
+                        <div>
                         <p>Ingen events funnet i {city}.</p>
+                       </div>
                     )}
                 </div>
             </section>

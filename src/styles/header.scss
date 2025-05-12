@@ -1,107 +1,198 @@
-.header{
-    display: flex;
-    flex-wrap: wrap;
-    background-color: #e6d8d4;
-    text-align: center;
-    text-decoration: auto;
-    width: 100%;
-    justify-content: space-between;
-    width: 100%;
-    justify-content: center;
-
-a {
-display: flex;
-color: black;
-font-weight: bold;
-
-}
-nav{
-    display: flex;
-
-
-    ul{
-        display: flex;
-        list-style: none;
-        padding: 0;
-        margin: 1rem;
-    }
-
-    li{
-        margin: 0 15px;
-        font-weight: bold;
-    }
-}
-
-}
-
-
-
-article a{
-    border: 2px solid #000;
-    background-color: #c2abc3;
-    justify-content: center;
-}
-
-.festivaler{
+body {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-
-    
-
-        article{
-
-            a{
-                color: #000;
-                font-weight: bold;
-                padding:0.5rem;
-
-            }
-        }
-    
-
-}
-
-
-
-
-body{
-    display: flex;
+    align-items: center;
     text-align: center;
-    color: #956996;
-    background-color: #e6d8d4;
+    background-color: #ebe6ea;
+    margin: 0;
+    font-family: sans-serif;
+}
+h3 {
+    color: #000000;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    
+}
+h2{
+    color: #000;
+    font-size: 2rem;
+    margin-top: 5rem;
 }
 
+article {
+    margin: 2rem;
+    width: 100%;
+    max-width: 300px;
 
-article{
-    margin: 50px;
 
-
-    img{
-        width: 250px;
-        height: 150px;
+    img {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
         object-fit: cover;
     }
+
+    a {
+        border: 2px solid #000;
+        color: #000;
+        font-weight: bold;
+        padding: 0.5rem;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 1rem;
+    }
 }
 
-@media (min-width:800px){
+.header {
+    display: flex;
+    flex-direction: row;
+    background-color: #ebe6ea;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
 
-    .header{
-        justify-content: space-between;
-
-        a{
-            margin:2rem;
-        }
-
-
+    a {
+        color:#000;
+        font-weight: bold;
+        text-decoration: none;
+       
     }
-    .festivaler{
-        flex-direction: row !important; 
-        flex-wrap: wrap;
-        
-        h1{
-            width: 100%;
-        }
 
+    #logo {
+        font-size: 2em;
+    }
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;  
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+ 
+}
+
+nav ul {
+    display: flex;
+    gap: 1rem;                 
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;    
+}
+
+.nav_category_wrapper {
+    display: flex; 
+    justify-content: center; 
+    width: 100%;  
+   
+}
+
+.nav_category {
+    padding: 0.5rem 1rem;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; 
+}
+
+.nav_category:hover {
+    color: white; 
+    background-color: #a36fa3;
+
+}
+
+
+.nav_logginn {
+    padding: 0.5rem 1rem;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    white-space: nowrap; 
+    margin-left: auto;  
+}
+
+
+.nav_logginn:hover {
+    background-color: #a36fa3;
+    color: white;
+}
+
+.festivaler {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+h1{
+    color: #000;
+    margin-bottom: 0;
+    
+}
+
+
+    article {
+        border: 6rem;
+        border: #000;
+        box-shadow: 0 3px 10px black;
+        border-radius: 10px;
+
+        a {
+            color: #ffffff;
+            background-color: #000;
+            font-weight: bold;
+            padding: 0.5rem;
+            text-decoration: none;
+        }
+        h3 {
+            color: #000;
+            margin-bottom: 2rem;
+        }
+    }
+}
+
+
+@media (min-width: 800px) {
+    .header {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+
+        a {
+            margin: 0 1rem;
+        }
+    }
+
+    .festivaler {
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        h1 {
+            width: 100%;
+            color: #000;
+        }
+    }
+
+    .nav_category_wrapper {
+        justify-content: center;
+        width: auto;
+    }
+
+    .nav_category {
+        padding: 0.75rem 1.5rem;
+    }
+
+    .nav_logginn {
+        padding: 0.75rem 2rem;
     }
 }
