@@ -26,13 +26,22 @@ export default function CategoryPage () {
 
   const apiKey = "4P5afjX98PHm5yhdSLbee6G9PVKAQGB7";
 
+
+  const [search, setSearchTerm] = useState("");
+  const [filterDate, setFilterDate] = useState("");
+  const [filterCountry, setFilterCountry] = useState("");
+  const [filterCity, setFilterCity] = useState("");
+  
+
+
   useEffect(() => {
     const fetchData = async () => {
       
+      if (!slug && !search && !filterCity && !filterCountry && !filterDate) return;
+      
         const url ="https://app.ticketmaster.com/discovery/v2/suggest";
         const params = `apikey=${apiKey}&locale=*&keyword=${slug || ""}`;
-
-  
+      
         try {
           const attractionsRes = await fetch (`${url}?${params}&resource=attractions`);
           const attractionsData = await attractionsRes.json();
@@ -51,12 +60,12 @@ export default function CategoryPage () {
           console.error("feil ved henting via suggest:", error)
         };
 
-
-
       }
 
         fetchData();
     }, [slug]);
+
+    
     
 
     const toggleWishlist = (id) => {
@@ -69,6 +78,36 @@ export default function CategoryPage () {
     <>
 
       <h1>{categoryName}</h1>
+
+      <div>
+        
+    
+
+        <input
+          type="date"
+          value={filterDate}
+          onChange={(e) => setFilterDate(e.target.value)}
+        />
+
+
+        <input
+          type="text"
+          placeholder="Land"
+          value={filterCountry}
+          onChange={(e) => setFilterCountry(e.target.value)}
+        />
+
+        <input
+          type="text"
+          placeholder="By"
+          value={filterCity}
+          onChange={(e) => setFilterCity(e.target.value)}
+        />
+      
+
+
+
+      </div>
 
       <section>
         <h2>Attraksjoner</h2>
