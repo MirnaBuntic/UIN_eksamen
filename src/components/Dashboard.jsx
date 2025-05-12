@@ -101,7 +101,7 @@ export default function Dashboard() {
                             <input 
                             type="text"
                             name="username"
-                            placeholder="olaNordmann123"
+                            placeholder="leoAjkic123"
                             onChange={handleChange}
                             className="login-input"
                             />
