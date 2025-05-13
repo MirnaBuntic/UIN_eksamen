@@ -12,6 +12,8 @@ export default function Dashboard() {
     const [currentUser, setCurrentUser] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [error, setError] = useState("");
+    const [wishListEvents, setWishListEvents] = useState([]);
+    const [previousPurchaseEvents, setPreviousPurchaseEvents] = useState([]);
 
     useEffect(() => {
         const getUsers = async () => {
@@ -26,7 +28,9 @@ export default function Dashboard() {
                         asset -> {
                             url
                         }
-                    }
+                    },
+                    wishList[]->{apiId},
+                    previousPurchases[]->{apiId}
                 }`);
                 setAllUsers(data);
             } catch (error) {
@@ -51,15 +55,79 @@ export default function Dashboard() {
                     asset -> {
                         url
                     }
-                }
+                },
+                wishList[]->{apiId},
+                previousPurchases[]->{apiId}
             }`).then((user) => {
                 if (user) {
                     setIsLoggedIn(true);
                     setCurrentUser(user);
+                    fetchEventDetails(user);
                 }
             });
         }
     }, []);
+
+    const fetchEventDetails = async (user) => {
+        const apiKey = '4P5afjX98PHm5yhdSLbee6G9PVKAQGB7';
+
+        const fetchSingleEvent = async (apiId) => {
+            if (!apiId) return null;
+            
+            try {
+                const eventResponse = await fetch(`https://app.ticketmaster.com/discovery/v2/events/${apiId}.json?apikey=${apiKey}`);
+                if (eventResponse.ok) {
+                    const data = await eventResponse.json();
+                    return {
+                        id: data.id,
+                        name: data.name,
+                        date: data.dates?.start?.localDate,
+                        image: data.images?.[0]?.url,
+                    };
+                }
+            } catch (error) {
+                console.error(`Skjedde noe feil ved henting av event ${apiId}`, error);
+            }
+
+            try {
+                const attractionResponse = await fetch(`https://app.ticketmaster.com/discovery/v2/attractions/${apiId}.json?apikey=${apiKey}`);
+                if (attractionResponse.ok) {
+                    const data = await attractionResponse.json();
+                    return {
+                        id: data.id,
+                        name: data.name,
+                        image: data.images?.[0]?.url,
+                    };
+                }
+            } catch (error) {
+                console.error(`Skjedde noe feil ved henting av attraction ${apiId}`, error);
+            }
+
+            return null;
+        };
+
+        const wishListIds = user.wishList?.map(item => item.apiId) || [];
+        const purchaseIds = user.previousPurchases?.map(item => item.apiId) || [];
+
+        const wishListResult = [];
+        for (let id of wishListIds) {
+            const event = await fetchSingleEvent(id);
+            if (event) {
+                wishListResult.push(event);
+            }
+        }
+
+        const purchaseResult = [];
+        for (let id of purchaseIds) {
+            const event = await fetchSingleEvent(id);
+            if (event) {
+                purchaseResult.push(event)
+            }
+        }
+
+        setWishListEvents(wishListResult);
+        setPreviousPurchaseEvents(purchaseResult);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -77,6 +145,7 @@ export default function Dashboard() {
             setCurrentUser(matchedUser);
             localStorage.setItem("login", "true");
             localStorage.setItem("userId", matchedUser._id);
+            fetchEventDetails(matchedUser);
             setError("");
         } else {
             setError("Finner inget konto koblet til dette brukernavn");
@@ -88,6 +157,8 @@ export default function Dashboard() {
         localStorage.removeItem("userId");
         setIsLoggedIn(false);
         setCurrentUser(null);
+        setWishListEvents([]);
+        setPreviousPurchaseEvents([]);
     };
 
     return (
@@ -124,10 +195,28 @@ export default function Dashboard() {
                    
                    <article className="user-purchases">
                         <h2>Mine kjøp</h2>
+                        <ul>
+                            {previousPurchaseEvents.map(event => (
+                                <li key={event.id}>
+                                    <img src={event.image} alt={event.name} />
+                                    <h3>{event.name}</h3>
+                                    <p>{event.date}</p>
+                                </li>
+                            ))}
+                        </ul>
                    </article>
 
                    <article className="user-wishlist">
                         <h2>Min ønskeliste</h2>
+                        <ul>
+                            {wishListEvents.map(event => (
+                                <li key={event.id}>
+                                    <img src={event.image} alt={event.name} />
+                                    <h3>{event.name}</h3>
+                                    <p>{event.date}</p>
+                                </li>
+                            ))}
+                        </ul>
                    </article>
                 </section>
             )}
