@@ -90,20 +90,6 @@ export default function Dashboard() {
                 console.error(`Skjedde noe feil ved henting av event ${apiId}`, error);
             }
 
-            try {
-                const attractionResponse = await fetch(`https://app.ticketmaster.com/discovery/v2/attractions/${apiId}.json?apikey=${apiKey}`);
-                if (attractionResponse.ok) {
-                    const data = await attractionResponse.json();
-                    return {
-                        id: data.id,
-                        name: data.name,
-                        image: data.images?.[0]?.url,
-                    };
-                }
-            } catch (error) {
-                console.error(`Skjedde noe feil ved henting av attraction ${apiId}`, error);
-            }
-
             return null;
         };
 
