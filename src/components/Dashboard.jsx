@@ -169,45 +169,49 @@ export default function Dashboard() {
                     </form>
                     {error && <p className="error-message">{error}</p>}
                 </section>
-            ) : ( 
-                <section className="user-dashboard">
-                    <article className="user-profile">
-                        <h1>Min side</h1>
-                        <h2 className="user-name">{currentUser?.name}</h2>
-                        {currentUser?.image?.asset?.url && <img className="user-image" src={currentUser?.image?.asset?.url} alt={currentUser?.name} />}
-                        <p className="user-email">Email: {currentUser?.email}</p>
-                        <p className="user-age">Alder: {currentUser?.age} år</p>
-                        <button className="logout-button" onClick={handleLogout}>Logg ut</button>
-                    </article>
-                   
-                   <article className="user-purchases">
-                        <h2>Mine kjøp</h2>
-                        <ul>
-                            {previousPurchaseEvents.map(event => (
-                                <li key={event.id}>
-                                    <img src={event.image} alt={event.name} />
-                                    <h3>{event.name}</h3>
-                                    <p>{event.date}</p>
-                                    <Link to={`/sanity-event/${event.id}`}>Se mer om dette kjøpet</Link>
-                                </li>
-                            ))}
-                        </ul>
-                   </article>
+            ) : (
+                <>
+                    <section className="user-dashboard">
+                        <article className="user-profile">
+                            <h1>Min side</h1>
+                            <h2 className="user-name">{currentUser?.name}</h2>
+                            {currentUser?.image?.asset?.url && <img className="user-image" src={currentUser?.image?.asset?.url} alt={currentUser?.name} />}
+                            <p className="user-email">Email: {currentUser?.email}</p>
+                            <p className="user-age">Alder: {currentUser?.age} år</p>
+                            <button className="logout-button" onClick={handleLogout}>Logg ut</button>
+                        </article>
+                    </section>
+                
+                    <section>
+                        <article className="user-purchases">
+                            <h2>Mine kjøp</h2>
+                            <ul>
+                                {previousPurchaseEvents.map(event => (
+                                    <li key={event.id}>
+                                        <img src={event.image} alt={event.name} />
+                                        <h3>{event.name}</h3>
+                                        <p>{event.date}</p>
+                                        <Link to={`/sanity-event/${event.id}`}>Se mer om dette kjøpet</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </article>
 
-                   <article className="user-wishlist">
-                        <h2>Min ønskeliste</h2>
-                        <ul>
-                            {wishListEvents.map(event => (
-                                <li key={event.id}>
-                                    <img src={event.image} alt={event.name} />
-                                    <h3>{event.name}</h3>
-                                    <p>{event.date}</p>
-                                    <Link to={`/sanity-event/${event.id}`}>Se mer om dette kjøpet</Link>
-                                </li>
-                            ))}
-                        </ul>
-                   </article>
-                </section>
+                        <article className="user-wishlist">
+                            <h2>Min ønskeliste</h2>
+                            <ul>
+                                {wishListEvents.map(event => (
+                                    <li key={event.id}>
+                                        <img src={event.image} alt={event.name} />
+                                        <h3>{event.name}</h3>
+                                        <p>{event.date}</p>
+                                        <Link to={`/sanity-event/${event.id}`}>Se mer om dette kjøpet</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </article>
+                    </section>
+                </>
             )}
        </div>
     );
