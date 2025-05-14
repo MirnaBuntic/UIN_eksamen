@@ -29,8 +29,13 @@ main{
         border-radius: 10px;
         margin:2rem;
         padding-bottom: 2rem;
-        max-width: 400px;
+        max-width: 350px;
+        min-width: 350px;
+        min-height: 650px;
+        max-height: 650px;
         flex-direction: column;
+
+        
 
           
        
@@ -43,6 +48,10 @@ main{
         p{
             color: #000;
             margin:0;
+        }
+
+        button{
+            margin-top: 1rem;
         }
 }
 
