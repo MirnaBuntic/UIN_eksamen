@@ -10,6 +10,19 @@ main{
     }
 }
 
+nav{
+    ul{
+        color:black;
+        a{
+            color: black;
+        }
+
+        li{
+            color: black;
+        }
+        }
+    }
+
 .Sjanger{
 
     text-align: left;
@@ -50,6 +63,7 @@ main{
 .festivaler{
     h2{
         margin:0;
+        width: 100%;
     }
 }
 
