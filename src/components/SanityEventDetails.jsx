@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { client } from "../sanityClient";
 
 
 export default function SanityEventDetails() {
@@ -7,6 +8,7 @@ export default function SanityEventDetails() {
 
     const { id } = useParams();
     const [ticketData, setTicketData] = useState(null);
+    const [relUsers, setRelUsers] = useState([]);
 
     useEffect(() => {
         const fetchTicketMaster = async () => {
@@ -32,8 +34,28 @@ export default function SanityEventDetails() {
         if (id) fetchTicketMaster();
     }, [id]);
 
+    useEffect(() => {
+        const fetchUsers = async () => {
+            const users = await client.fetch(`*[_type == "bruker"]{
+                name,
+                image { asset->{url} },
+                wishList[]->{apiId},
+                previousPurchases[]->{apiId}
+            }`);
+
+            const match = users.filter(user => {
+                const allEvents = [...(user.wishList || []), ...(user.previousPurchases || [])];
+                return allEvents.some(event => event.apiId === id);
+            });
+
+            setRelUsers(match);
+        };
+
+        if (id) fetchUsers();
+    }, [id]);
+
     return (
-        <section>
+        <>
             <nav>
                 <ul>
                     <li>
@@ -57,6 +79,22 @@ export default function SanityEventDetails() {
             ) : (
                 <p>Laster info om eventet...</p>
             )}
-        </section>
+
+            {relUsers.length > 0 && (
+                <article>
+                    <h2>Hvem har detta i ønskeliste</h2>
+                    <ul>
+                        {relUsers.map((user, index) => (
+                            <li>
+                                {user.image?.asset?.url && (
+                                    <img src={user.image.asset.url} alt={user.name}></img>
+                                )}
+                                <p>{user.name}</p>
+                            </li>
+                        ))}
+                    </ul>
+                </article>
+            )}
+        </>
     );
 }
