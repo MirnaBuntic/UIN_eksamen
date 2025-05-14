@@ -15,6 +15,7 @@ export default function Dashboard() {
     const [error, setError] = useState("");
     const [wishListEvents, setWishListEvents] = useState([]);
     const [previousPurchaseEvents, setPreviousPurchaseEvents] = useState([]);
+    const [sharedFriendsEvent, setSharedFriendsEvent] = useState({});
 
     useEffect(() => {
         const getUsers = async () => {
@@ -31,7 +32,15 @@ export default function Dashboard() {
                         }
                     },
                     wishList[]->{apiId},
-                    previousPurchases[]->{apiId}
+                    previousPurchases[]->{apiId},
+                    friends[]->{
+                        _id,
+                        name,
+                        image {
+                            asset -> { url }
+                        },
+                        wishList[]->{apiId}    
+                    }
                 }`);
                 setAllUsers(data);
             } catch (error) {
@@ -58,7 +67,15 @@ export default function Dashboard() {
                     }
                 },
                 wishList[]->{apiId},
-                previousPurchases[]->{apiId}
+                previousPurchases[]->{apiId},
+                friends[]->{
+                    _id,
+                    name,
+                    image {
+                        asset -> { url }
+                    },
+                    wishList[]->{apiId}    
+                }
             }`).then((user) => {
                 if (user) {
                     setIsLoggedIn(true);
@@ -69,30 +86,29 @@ export default function Dashboard() {
         }
     }, []);
 
-    const fetchEventDetails = async (user) => {
+    const fetchSingleEvent = async (apiId) => {
         const apiKey = '4P5afjX98PHm5yhdSLbee6G9PVKAQGB7';
-
-        const fetchSingleEvent = async (apiId) => {
-            if (!apiId) return null;
+        if (!apiId) return null;
             
-            try {
-                const eventResponse = await fetch(`https://app.ticketmaster.com/discovery/v2/events/${apiId}.json?apikey=${apiKey}`);
-                if (eventResponse.ok) {
-                    const data = await eventResponse.json();
-                    return {
-                        id: data.id,
-                        name: data.name,
-                        date: data.dates?.start?.localDate,
-                        image: data.images?.[0]?.url,
-                    };
-                }
-            } catch (error) {
-                console.error(`Skjedde noe feil ved henting av event ${apiId}`, error);
+        try {
+            const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events/${apiId}.json?apikey=${apiKey}`);
+            if (response.ok) {
+                const data = await response.json();
+                return {
+                    id: data.id,
+                    name: data.name,
+                    date: data.dates?.start?.localDate,
+                    image: data.images?.[0]?.url,
+                };
             }
-
+           
+        } catch (error) {
+            console.error("Skjedde noe feil ved henting av event", error);
             return null;
-        };
+        }
+    };
 
+    const fetchEventDetails = async (user) => {
         const wishListIds = user.wishList?.map(item => item.apiId) || [];
         const purchaseIds = user.previousPurchases?.map(item => item.apiId) || [];
 
@@ -114,7 +130,18 @@ export default function Dashboard() {
 
         setWishListEvents(wishListResult);
         setPreviousPurchaseEvents(purchaseResult);
-    };
+
+        const sharedEvents = {};
+        for (let friend of user.friends || []) {
+            const sharedEvent = wishListResult.filter(event =>
+                friend.wishList?.some(friendEvent => friendEvent.apiId === event.id)
+            );
+            if (sharedEvent.length > 0) {
+                sharedEvents[friend._id] = sharedEvent;
+            }
+        }
+        setSharedFriendsEvent(sharedEvents);
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -146,6 +173,7 @@ export default function Dashboard() {
         setCurrentUser(null);
         setWishListEvents([]);
         setPreviousPurchaseEvents([]);
+        setSharedFriendsEvent([]);
     };
 
     return (
@@ -179,6 +207,25 @@ export default function Dashboard() {
                             <p className="user-email">Email: {currentUser?.email}</p>
                             <p className="user-age">Alder: {currentUser?.age} år</p>
                             <button className="logout-button" onClick={handleLogout}>Logg ut</button>
+                        </article>
+                    </section>
+
+                    <section>
+                        <article>
+                            <h2>Mine venner</h2>
+                            <ul>
+                                {currentUser?.friends?.map(friend => (
+                                    <li key={friend._id}>
+                                        {friend.image?.asset?.url && (
+                                            <img src={friend.image.asset.url} alt={friend.name} />
+                                        )}
+                                        <p>{friend.name}</p>
+                                        {sharedFriendsEvent[friend._id]?.map(event => (
+                                            <p key={event.id}>Du og {friend.name} har samme event i ønskelisten. Hva med å dra sammen på {event.name}?</p>
+                                        ))}
+                                    </li>
+                                ))}
+                            </ul>
                         </article>
                     </section>
                 
