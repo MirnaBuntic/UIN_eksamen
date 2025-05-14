@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import "../styles/Sanityevent.scss"
 import { client } from "../sanityClient";
 
 
@@ -67,7 +68,7 @@ export default function SanityEventDetails() {
             </nav>
 
             {ticketData ? (
-                <article>
+                <article className="eventdetailes">
                     <h1>{ticketData.name}</h1>
                     {ticketData.image && <img src={ticketData.image} alt={ticketData.name} />}
                     <h3>Dato og sted</h3>

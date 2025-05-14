@@ -82,7 +82,7 @@ export default function CategoryPage () {
 
       <h1>{categoryName}</h1>
 
-      <div>
+      <div className="filter">
         
     
 
