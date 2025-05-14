@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { client } from "../sanityClient";
 import '../styles/dashboard.scss'
 import "../styles/header.scss"
@@ -201,6 +202,7 @@ export default function Dashboard() {
                                     <img src={event.image} alt={event.name} />
                                     <h3>{event.name}</h3>
                                     <p>{event.date}</p>
+                                    <Link to={`/sanity-event/${event.id}`}>Se mer om dette kjøpet</Link>
                                 </li>
                             ))}
                         </ul>
@@ -214,6 +216,7 @@ export default function Dashboard() {
                                     <img src={event.image} alt={event.name} />
                                     <h3>{event.name}</h3>
                                     <p>{event.date}</p>
+                                    <Link to={`/sanity-event/${event.id}`}>Se mer om dette kjøpet</Link>
                                 </li>
                             ))}
                         </ul>

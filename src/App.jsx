@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import CategoryPage from "./components/CategoryPage";
 import EventPage from "./components/EventPage";
 import Dashboard from "./components/Dashboard";
+import SanityEventDetails from "./components/SanityEventDetails";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./styles/app.scss"
 
@@ -49,6 +50,7 @@ export default function App() {
         <Route path="/event/:slug" element={<EventPage attractions={attractions} />}></Route>
         <Route path="/category/:slug" element={<CategoryPage attractions={attractions}/>}></Route>
         <Route path="/dashboard" element={<Dashboard attractions={attractions}/>}></Route>
+        <Route path="/sanity-event/:id" element={<SanityEventDetails />} />
       </Routes>
    </Layout>
   )

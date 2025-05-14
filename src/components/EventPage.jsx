@@ -7,9 +7,6 @@ import "../styles/header.scss"
 import "../styles/Eventpage.scss"
 
 
-
-
-
 export default function EventPage({ attractions }) {
 
     const { slug } = useParams();
