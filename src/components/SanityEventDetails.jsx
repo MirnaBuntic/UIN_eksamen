@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import "../styles/Sanityevent.scss"
 
 export default function SanityEventDetails() {
     const apiKey = '4P5afjX98PHm5yhdSLbee6G9PVKAQGB7';
@@ -35,7 +35,7 @@ export default function SanityEventDetails() {
     return (
         <section>
             {ticketData ? (
-                <article>
+                <article className="eventdetailes">
                     <h1>{ticketData.name}</h1>
                     {ticketData.image && <img src={ticketData.image} alt={ticketData.name} />}
                     <h3>Dato og sted</h3>
