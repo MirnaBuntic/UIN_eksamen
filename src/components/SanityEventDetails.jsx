@@ -82,7 +82,7 @@ export default function SanityEventDetails() {
             )}
 
             {relUsers.length > 0 && (
-                <article>
+                <article className="sanity-wishlist">
                     <h2>Hvem har detta i ønskeliste</h2>
                     <ul>
                         {relUsers.map((user, index) => (

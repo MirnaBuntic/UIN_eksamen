@@ -12,7 +12,19 @@
     }
 
 }
+.sanity-wishlist{
+    ul{
+        padding: 0;
+        list-style: none;
+        li{
+            p{
+                color:black;
+            }
 
+        }
+    }
+
+}
 @media (min-width: 800px) {
     .eventdetailes {
         display: flex;
