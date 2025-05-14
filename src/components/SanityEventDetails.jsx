@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 
@@ -34,6 +34,16 @@ export default function SanityEventDetails() {
 
     return (
         <section>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/dashboard">Logg inn</Link>
+                    </li>
+                    <li>{">"}</li>
+                    <li>{ticketData?.name}</li>
+                </ul>
+            </nav>
+
             {ticketData ? (
                 <article>
                     <h1>{ticketData.name}</h1>
