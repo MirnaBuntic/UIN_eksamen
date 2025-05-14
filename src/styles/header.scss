@@ -98,11 +98,10 @@ nav ul {
     text-decoration: none;
     font-weight: bold;
     border-radius: 0.5rem;
-    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    white-space: nowrap; 
+   
 }
 
 .nav_category:hover {
@@ -118,8 +117,6 @@ nav ul {
     text-decoration: none;
     font-weight: bold;
     border-radius: 0.5rem;
-    transition: all 0.3s ease;
-    white-space: nowrap; 
     margin-left: auto;  
 }
 
