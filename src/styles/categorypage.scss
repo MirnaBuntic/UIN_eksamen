@@ -20,7 +20,9 @@ main{
 }
 
 
-.card{
+.card{ 
+        display: flex;
+        align-items: center;
         border: 6rem;
         border: #000;
         box-shadow: 0 3px 10px black;
@@ -28,6 +30,8 @@ main{
         margin:2rem;
         padding-bottom: 2rem;
         max-width: 400px;
+
+          
        
         
         
@@ -37,6 +41,7 @@ main{
         
         p{
             color: #000;
+            margin:0;
         }
 }
 
