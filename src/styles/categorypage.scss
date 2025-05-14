@@ -6,6 +6,16 @@ main{
     }
 }
 
+.filter{
+
+    input{
+        margin: 1rem;
+        background-color: white;
+        color: black;
+        padding: 0.5rem;
+    }
+}
+
 .Attraction, .Arrangement, .Venues{
     h2{
         margin-top: 6rem;
@@ -15,6 +25,7 @@ main{
         flex-direction: column;
         flex-wrap: wrap;
         align-items: center;
+        align-content: center;
     }
 
 }
