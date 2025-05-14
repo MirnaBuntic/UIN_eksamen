@@ -27,8 +27,8 @@ export default function EventCard({ attraction, event }) {
                 )}
     
                 {isEvent && (
-                    <article>
-                        {imageUrl && <img src={imageUrl} alt={attraction.name} />}
+                    <article className="card">
+                        {imageUrl && <img src={imageUrl} className="card-img" alt={attraction.name} />}
                         <h3>{attraction.name}</h3> 
                         <p>{eventDate}</p>
                         <p>{eventTime}</p>

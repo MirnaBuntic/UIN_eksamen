@@ -1,13 +1,10 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ArtistCard from "./ArtistCard";
 import EventCard from "./EventCard";
 import "../styles/citycard.scss"
 import "../styles/header.scss"
 import "../styles/Eventpage.scss"
-
-
-
 
 
 export default function EventPage({ attractions }) {
@@ -74,6 +71,16 @@ export default function EventPage({ attractions }) {
 
     return (
         <>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/">Startsiden</Link>
+                    </li>
+                    <li>{">"}</li>
+                    <li>{attraction.name}</li>
+                </ul>
+            </nav>
+
             <h2>{attraction.name}</h2>
 
             <section>

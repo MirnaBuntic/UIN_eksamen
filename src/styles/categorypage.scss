@@ -6,6 +6,16 @@ main{
     }
 }
 
+.filter{
+
+    input{
+        margin: 1rem;
+        background-color: white;
+        color: black;
+        padding: 0.5rem;
+    }
+}
+
 .Attraction, .Arrangement, .Venues{
     h2{
         margin-top: 6rem;
@@ -15,19 +25,30 @@ main{
         flex-direction: column;
         flex-wrap: wrap;
         align-items: center;
+        align-content: center;
     }
 
 }
 
 
-.card{
+.card{ 
+        display: flex;
+        align-items: center;
         border: 6rem;
         border: #000;
         box-shadow: 0 3px 10px black;
         border-radius: 10px;
         margin:2rem;
         padding-bottom: 2rem;
-        max-width: 400px;
+        max-width: 350px;
+        min-width: 350px;
+        min-height: 700px;
+        max-height: 700px;
+        flex-direction: column;
+
+        
+
+          
        
         
         
@@ -37,6 +58,11 @@ main{
         
         p{
             color: #000;
+            margin:0;
+        }
+
+        button{
+            margin-top: 1rem;
         }
 }
 

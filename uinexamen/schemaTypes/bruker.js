@@ -52,5 +52,11 @@ export default {
             title: 'Min ønskeliste',
             of: [{ type: 'reference', to: [{ type: 'event' }] }],
         },
+        {
+            name: 'friends',
+            title: 'Venner',
+            type: 'array',
+            of: [{ type: 'reference', to: [{ type: 'bruker' }] }],
+        },
     ],
 };

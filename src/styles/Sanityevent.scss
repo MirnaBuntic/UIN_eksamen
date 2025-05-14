@@ -1,0 +1,46 @@
+.eventdetailes{
+    h1{
+        font-size: 2rem;
+        margin-bottom: 3rem;
+        
+    }
+    p{
+        color: black;
+    }
+    h3{
+        margin-top: 4rem;
+    }
+
+}
+.sanity-wishlist{
+    
+        margin: 0 auto;
+    
+    ul{
+        padding: 0;
+        list-style: none;
+        margin: 0 auto;
+        li{
+            p{
+                color:black;
+            }
+
+        }
+    }
+
+}
+@media (min-width: 800px) {
+    .eventdetailes {
+        display: flex;
+        flex-direction: column; 
+        justify-content: center; /* For å sentrere innholdet horisontalt */
+        align-items: center; /* For å sentrere innholdet vertikalt */
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    
+}
+
+
+
