@@ -65,11 +65,26 @@ nav{
         margin:0;
         width: 100%;
     }
+    article{
+        border: #000;
+        box-shadow: 0 3px 10px black;
+        border-radius: 10px;
+        max-width: 300px;
+        max-height: 600px;
+        min-height: 600px;
+        min-width: 300px;
+        color: black;
+    }
 }
 
 .artister{
+    
+  
+
     ul{
         padding:0;
+        margin:0;
+
         li{
             list-style: none;
             margin: 4rem auto;
@@ -77,12 +92,13 @@ nav{
                 min-width: 200px;
                 img{
                     width: 100%;
-                    max-width: 350px;
-                    min-width: 350px;
+                    max-width: 300px;
+                    min-width: 300px;
                     max-height: 300px;
                     min-height: 300px;
                     height: auto;
                     object-fit: cover;
+                    align-items: center;
                 }
                 figcaption{
                     color:black;
