@@ -19,16 +19,19 @@ export default function EventCard({ attraction, event }) {
         return (
             <>
                 {!isEvent && (
-                    <article>
-                        {imageUrl && <img src={imageUrl} alt={attraction.name} />}
+                    <article aria-label={`Informasjon om attraksjon med navn: ${attraction.name}`}>
+                        {imageUrl && <img src={imageUrl} alt={`Bilde av ${attraction.name}`} />}
                         <h3>{attraction.name}</h3>
-                        <Link to={`/event/${slug}`}>Les mer om {attraction.name}</Link>
+                        <Link to={`/event/${slug}`}
+                        aria-label={`Les mer om ${attraction.name}`}>Les mer om {attraction.name}</Link>
                     </article>
                 )}
     
                 {isEvent && (
-                    <article className="card">
-                        {imageUrl && <img src={imageUrl} className="card-img" alt={attraction.name} />}
+                    <article 
+                        className="card"
+                        aria-label={`Arrangement: ${attraction.name} i ${city}, ${country} på ${venueName}`}>
+                        {imageUrl && <img src={imageUrl} className="card-img" alt={`Bilde av ${attraction.name}`} />}
                         <h3>{attraction.name}</h3> 
                         <p>{eventDate}</p>
                         <p>{eventTime}</p>
@@ -43,13 +46,13 @@ export default function EventCard({ attraction, event }) {
 
     if (event) {
         return (
-            <article>
-                {event.image && <img src={event.image} alt={event.name} />}
+            <article aria-label={`Informasjon om arrangement: ${event.name}`}>
+                {event.image && <img src={event.image} alt={`Bilde av ${event.name}`} />}
                 <h3>{event.name}</h3>
                 <p>{event.venue}</p>
                 <p>{event.date}</p>
-                <p>Kjøp</p>
-                <p>Legg til i ønskeliste</p>
+                <button type="button" aria-label={`Kjøp billetter til ${event.name}`}>Kjøp</button>
+                <button type="button" aria-label={`Legg til ${event.name} til i ønskelisten`}>Legg til i ønskeliste</button>
             </article>
         )
     }
