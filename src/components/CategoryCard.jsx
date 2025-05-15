@@ -6,8 +6,9 @@ export default function CategoryCard ({item, isSaved, onSave}) {
 
 
     const {name, venue, date,city, country, images} = item;
-
-    const imageUrl = images?.[0]?.url  || "";
+    
+    //https://betterplaceholder.com/ fake placeholder
+    const imageUrl = images?.[0]?.url  || "https://fakeimg.pl/600x400?text=no+img"; 
 
 
 

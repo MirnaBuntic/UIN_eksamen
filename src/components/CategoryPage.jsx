@@ -26,36 +26,49 @@ export default function CategoryPage () {
     search: ""
   });
 
+  const countryOptions = ["Norge", "Sverige", "Danmark"];
+  const cityOptions = ["Oslo", "Stockholm", "København"];
+
   const apiKey = "4P5afjX98PHm5yhdSLbee6G9PVKAQGB7";
 
   useEffect(() => {
-
     const fetchData = async () => {
-      try {
-        
-        const eventRes = await fetch (`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&classificationName=${slug}&size=20`);
-        const eventData = await eventRes.json();
-        setEvents(eventData._embedded?.events || []);
+      
 
-        const attractionRes = await fetch (`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&classificationName=${slug}&size=20`);
-        const attractionData = await attractionRes.json();
-        setAttractions(attractionData._embedded.events || []);
-
-
-        const venuesRes = await fetch (`https://app.ticketmaster.com/discovery/v2/venues.json?apikey=${apiKey}&keyword=${slug}&size=20`);
-        const venueData = await venuesRes.json();
-        setVenues(venueData._embedded?.venues || []);
-      } catch (error) {
-        console.error("Feil ved henting av data", error);
-      }
-    };
-
-    fetchData();
-  }, [slug]);
-    
-    
       //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent
       //søkte på how can i turn & into url in javascript på google
+
+        const url ="https://app.ticketmaster.com/discovery/v2/suggest";
+        const params = `apikey=${apiKey}&locale=*&keyword=${encodeURIComponent(slug || "")}`;
+
+  
+        try {
+          const attractionsRes = await fetch (`${url}?${params}&resource=attractions`);
+          const attractionsData = await attractionsRes.json();
+          setAttractions(attractionsData._embedded?.attractions || []);
+
+          const venuesRes = await fetch (`${url}?${params}&resource=venues`);
+          const venueData = await venuesRes.json();
+          setVenues(venueData._embedded?.venues || []);
+
+
+
+          const urlEvents = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&locale=*&size=20&classificationName=${encodeURIComponent(slug || "")}`;
+
+          const eventRes = await fetch (urlEvents);
+          const eventData = await eventRes.json();
+          setEvents(eventData._embedded?.events || []);
+        } catch (error) {
+          console.error("feil ved henting via suggest:", error)
+
+        };
+
+
+
+      }
+
+        fetchData();
+    }, [slug]);
     
 
     const toggleWishlist = (id) => {
@@ -74,13 +87,13 @@ export default function CategoryPage () {
         return items.filter((item) => {
           const name = item.name?.toLowerCase () || "";
           const city = item._embedded?.venues?.[0]?.city?.name?.toLowerCase() || item.city?.name?.toLowerCase() || "";
-          const country = item._embedded?.venues?.[0]?.country?.name?.toLowerCase() || item.country?.name?.toLowerCase() || "";
+          const country = item._embedded?.venues?.[0]?.country?.name?.toLowerCase() || item.coutry?.name?.toLowerCase() || "";
           const date = item.dates?.start?.localeDate || "";
 
          return (
           (!filters.date || date === filters.date) &&
-          (!filters.city || city.includes(filters.city.toLowerCase())) &&
-          (!filters.country || country.includes (filters.country.toLowerCase())) &&
+          (!filters.city || city === filters.city) &&
+          (!filters.country || country === filters.country) &&
           (!filters.search || name.includes(filters.search.toLowerCase()))
          )
           
@@ -104,19 +117,32 @@ export default function CategoryPage () {
           onChange={(e) => setFilters({...filters, date: e.target.value})}
         />
 
-        <input
-          type="text"
-          placeholder="By"
+        <select 
           value={filters.city}
-          onChange={(e) => setFilters({...filters, city: e.target.value})}
-        />
+          onChange={(e) => setFilters({...filters, city: e.target.value })}>
+            <option value="">Velg by</option>
+            {cityOptions.map((city) => (
+              <option key={city} value={city}>
+                {city}
+          </option>
+            ))}
+          </select>
 
-        <input
-          type="text"
-          placeholder="Land"
+
+          
+        <select 
           value={filters.country}
-          onChange={(e) => setFilters({...filters, country: e.target.value})}
-        />
+          onChange={(e) => setFilters({...filters, city: e.target.value })}>
+            <option value="">Velg land</option>
+            {countryOptions.map((country) => (
+              <option key={country} value={country}>
+                {country}
+          </option>
+            ))}
+          </select>
+        
+
+        
 
         <input
           type="text"
