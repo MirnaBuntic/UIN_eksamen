@@ -63,14 +63,13 @@ export default function CategoryPage () {
 
         };
 
-
-
       }
 
         fetchData();
     }, [slug]);
     
-    useEffect(() => {
+
+      useEffect(() => {
       const stored = JSON.parse(localStorage.getItem("localWishlist")) || [];
       setWishlist(stored);
     }, []);
@@ -86,7 +85,33 @@ export default function CategoryPage () {
       });
     };
 
-    
+
+    //https://stackoverflow.com/questions/66914812/filtering-data-using-react-hooks
+
+
+      const applyFilters = (items) => {
+
+        return items.filter((item) => {
+          const name = item.name?.toLowerCase () || "";
+          const city = item._embedded?.venues?.[0]?.city?.name?.toLowerCase() || item.city?.name?.toLowerCase() || "";
+          const country = item._embedded?.venues?.[0]?.country?.name?.toLowerCase() || item.country?.name?.toLowerCase() || "";
+          const date = item.dates?.start?.localeDate || "";
+
+         return (
+          (!filters.date || date === filters.date) &&
+          (!filters.city || city === filters.city) &&
+          (!filters.country || country === filters.country) &&
+          (!filters.search || name.includes(filters.search.toLowerCase()))
+         )
+          
+        })
+      };
+
+      const filteredEvents = applyFilters(events);
+      const filteredAttractions = applyFilters(attractions);
+      const filteredVenues = applyFilters (venues);
+
+
   return (
     <>
 
@@ -114,7 +139,7 @@ export default function CategoryPage () {
           
         <select 
           value={filters.country}
-          onChange={(e) => setFilters({...filters, city: e.target.value })}>
+          onChange={(e) => setFilters({...filters, country: e.target.value })}>
             <option value="">Velg land</option>
             {countryOptions.map((country) => (
               <option key={country} value={country}>
@@ -141,7 +166,7 @@ export default function CategoryPage () {
       <section className="Attraction">
         <h2>Attraksjoner</h2>
         <div>
-          {filteredAttrations.map((item) => (
+          {filteredAttractions.map((item) => (
             <CategoryCard
             key={item.id}
             item={{ ...item, 

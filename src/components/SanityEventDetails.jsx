@@ -70,7 +70,7 @@ export default function SanityEventDetails() {
             {ticketData ? (
                 <article className="eventdetailes" aria-label="Eventdetaljer">
                     <h1>{ticketData.name}</h1>
-                    {ticketData.image && <img src={ticketData.image} alt={`Bilde av ${ticketDate.name}`} />}
+                    {ticketData.image && <img src={ticketData.image} alt={`Bilde av ${ticketData.name}`} />}
                     <h3>Dato og sted</h3>
                     <p>Dato: {ticketData.date}</p>
                     <p>Sted: {ticketData.venue}</p>
@@ -85,7 +85,7 @@ export default function SanityEventDetails() {
                 <article className="sanity-wishlist" aria-label="Brukere som har dette ønskelisten">
                     <h2>Hvem har dette i ønskeliste</h2>
                     <ul>
-                        {relUsers.map((user, index) => (
+                        {relUsers.map((user) => (
                             <li>
                                 {user.image?.asset?.url && (
                                     <img src={user.image.asset.url} alt={`Profilbilde av ${user.name}`}></img>
