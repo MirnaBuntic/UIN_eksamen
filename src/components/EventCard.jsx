@@ -49,10 +49,14 @@ export default function EventCard({ attraction, event }) {
             <article aria-label={`Informasjon om arrangement: ${event.name}`}>
                 {event.image && <img src={event.image} alt={`Bilde av ${event.name}`} />}
                 <h3>{event.name}</h3>
-                <p>{event.venue}</p>
-                <p>{event.date}</p>
-                <button type="button" aria-label={`Kjøp billetter til ${event.name}`}>Kjøp</button>
-                <button type="button" aria-label={`Legg til ${event.name} til i ønskelisten`}>Legg til i ønskeliste</button>
+                <div className="venue-date">
+                    <p>{event.venue}</p>
+                    <p>{event.date}</p>
+                </div>
+                <div className="button-flex"> 
+                    <button type="button" aria-label={`Kjøp billetter til ${event.name}`}>Kjøp</button>
+                    <button type="button" aria-label={`Legg til ${event.name} til i ønskelisten`}>Legg til i ønskeliste</button>
+                </div>     
             </article>
         )
     }
