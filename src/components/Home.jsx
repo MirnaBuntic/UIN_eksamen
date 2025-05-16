@@ -40,17 +40,17 @@ export default function Home({ attractions }) {
 
     return (
         <>
-            <section className="festivaler">
+            <section className="festivaler" aria-label="Festivaler denne sommeren">
                 <h1>Sommerens festivaler!</h1>
                 {attractions?.map((attraction) => (
                     <EventCard key={attraction.id} attraction={attraction} />
                 ))}
             </section>
 
-            <section>
+            <section aria-label="Arrangementer i verdens storbyer">
                 <h2>Hva skjer i verdens storbyer!</h2>
 
-                <div className="button-container">
+                <div className="button-container" aria-label="Velg en av storbyene for å vise arragementer">
                     {cities.map((cityName) => (
                         <button key={cityName} onClick={() => setCity(cityName)}>
                             {cityName}
@@ -58,9 +58,9 @@ export default function Home({ attractions }) {
                     ))}
                 </div>
 
-                <h3>Hva skjer i {city}</h3>
+                <h3 aria-live="polite">Hva skjer i {city}</h3>
 
-                <div className="event_city">
+                <div className="event_city" aria-label={`Arrangementer i ${city}`}>
                     {events.length > 0 ? (
                         events.map((event) => (
                             <EventCard key={event.id} attraction={event} showMoreLink={false}/>

@@ -2,10 +2,10 @@
 export default function ArtistCard({ artist }) {
 
     const imageUrl = artist?.images?.[0]?.url;
-    const name = artist?.name;
+    const name = artist?.name || "Ukjent artist";
 
     return (
-        <figure>
+        <figure aria-label={`Artist: ${name}`}>
             {imageUrl && <img src={imageUrl} alt={name} />}
             <figcaption>{name}</figcaption>
         </figure>

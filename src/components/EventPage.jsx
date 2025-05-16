@@ -71,20 +71,20 @@ export default function EventPage({ attractions }) {
 
     return (
         <>
-            <nav>
+            <nav aria-label="Brødsmulesti">
                 <ul>
                     <li>
-                        <Link to="/">Startsiden</Link>
+                        <Link to="/" aria-label="Gå til startsiden">Startsiden</Link>
                     </li>
-                    <li>{">"}</li>
-                    <li>{attraction.name}</li>
+                    <li aria-hidden="true">{">"}</li>
+                    <li aria-current="page">{attraction.name}</li>
                 </ul>
             </nav>
 
             <h2>{attraction.name}</h2>
 
-            <section>
-                <article className="Sjanger">
+            <section aria-label="Informasjon om sjanger og sosiale medier">
+                <article className="Sjanger" aria-label="Sjangere">
                     <h3>Sjanger:</h3>
                     <ul>
                         {genres.map((genre, index) => (
@@ -94,13 +94,13 @@ export default function EventPage({ attractions }) {
                 </article>
 
                 {/*Fick hjälp av chatgpt med användningen av object.keys för att få det som var i console logen synligt på sidan. nr5*/}
-                <article className="SoMe">
+                <article className="SoMe" aria-label="Festivalens sosiale medier">
                     <h3>Følg oss på sosiale medier:</h3>
                     {Object.keys(socialMedia).length > 0 ? (
                         <ul>
                             {Object.keys(socialMedia).map((platform, index) => (
                                 <li key={index}>
-                                    <a href={socialMedia[platform][0].url}>{platform}</a>
+                                    <a href={socialMedia[platform][0].url} aria-label={`Besøk vår ${platform}-side`}>{platform}</a>
                                 </li>
                             ))}
                         </ul>
@@ -113,7 +113,7 @@ export default function EventPage({ attractions }) {
 
 
             {festivalPasses.length > 0 && (
-                <section className="festivaler"> 
+                <section className="festivaler" aria-label="Festivalpass"> 
                     <h2>Festivalpass:</h2>
                     {festivalPasses.map(pass => (
                         <EventCard key={pass.id} event={pass} />
@@ -122,7 +122,7 @@ export default function EventPage({ attractions }) {
             )}
 
             {artists.length > 0 && (
-                <section className="artister">
+                <section className="artister" aria-label="Liste over artister">
                     <h2>Artister:</h2>
                     <ul>
                         {artists.map((artist) => (

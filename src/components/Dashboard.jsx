@@ -15,6 +15,10 @@ export default function Dashboard() {
     const [error, setError] = useState("");
     const [wishListEvents, setWishListEvents] = useState([]);
     const [previousPurchaseEvents, setPreviousPurchaseEvents] = useState([]);
+    const [sharedFriendsEvent, setSharedFriendsEvent] = useState({});
+    const [attractions, setAttractions] = useState([]);
+
+    const apiKey = '4P5afjX98PHm5yhdSLbee6G9PVKAQGB7';
 
     useEffect(() => {
         const getUsers = async () => {
@@ -31,7 +35,15 @@ export default function Dashboard() {
                         }
                     },
                     wishList[]->{apiId},
-                    previousPurchases[]->{apiId}
+                    previousPurchases[]->{apiId},
+                    friends[]->{
+                        _id,
+                        name,
+                        image {
+                            asset -> { url }
+                        },
+                        wishList[]->{apiId}    
+                    }
                 }`);
                 setAllUsers(data);
             } catch (error) {
@@ -58,7 +70,15 @@ export default function Dashboard() {
                     }
                 },
                 wishList[]->{apiId},
-                previousPurchases[]->{apiId}
+                previousPurchases[]->{apiId},
+                friends[]->{
+                    _id,
+                    name,
+                    image {
+                        asset -> { url }
+                    },
+                    wishList[]->{apiId}    
+                }
             }`).then((user) => {
                 if (user) {
                     setIsLoggedIn(true);
@@ -67,42 +87,67 @@ export default function Dashboard() {
                 }
             });
         }
-    }, []);
+    }, [attractions]);
 
-    const fetchEventDetails = async (user) => {
-        const apiKey = '4P5afjX98PHm5yhdSLbee6G9PVKAQGB7';
-
-        const fetchSingleEvent = async (apiId) => {
-            if (!apiId) return null;
-            
+    useEffect(() => {
+        const fetchAttractions = async () => {
             try {
-                const eventResponse = await fetch(`https://app.ticketmaster.com/discovery/v2/events/${apiId}.json?apikey=${apiKey}`);
-                if (eventResponse.ok) {
-                    const data = await eventResponse.json();
-                    return {
-                        id: data.id,
-                        name: data.name,
-                        date: data.dates?.start?.localDate,
-                        image: data.images?.[0]?.url,
-                    };
+                const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?locale=*&apikey=${apiKey}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    const events = data._embedded?.events || [];
+                    const findAttractions = events.map(event => ({
+                        id: event.id,
+                        name: event.name,
+                        date: event.dates?.start?.localDate,
+                        image: event.images?.[0]?.url,
+                    }));
+                    setAttractions(findAttractions);
                 }
             } catch (error) {
-                console.error(`Skjedde noe feil ved henting av event ${apiId}`, error);
+                console.error("Skjedde noe feil ved henting av attractions", error);
             }
-
-            return null;
         };
+        fetchAttractions();
+    }, []);
 
-        const wishListIds = user.wishList?.map(item => item.apiId) || [];
+    const fetchSingleEvent = async (apiId) => {
+        if (!apiId) return null;
+            
+        try {
+            const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events/${apiId}.json?apikey=${apiKey}`);
+            if (response.ok) {
+                const data = await response.json();
+                return {
+                    id: data.id,
+                    name: data.name,
+                    date: data.dates?.start?.localDate,
+                    image: data.images?.[0]?.url,
+                };
+            }
+           
+        } catch (error) {
+            console.error("Skjedde noe feil ved henting av event", error);
+            return null;
+        }
+    };
+
+    const fetchEventDetails = async (user) => {
+        const sanityWishlistIds = user.wishList?.map(item => item.apiId) || [];
         const purchaseIds = user.previousPurchases?.map(item => item.apiId) || [];
+        const localWishlistIds = JSON.parse(localStorage.getItem("localWishlist")) || [];
 
-        const wishListResult = [];
-        for (let id of wishListIds) {
+        const SanityWishlist = [];
+        for (let id of sanityWishlistIds) {
             const event = await fetchSingleEvent(id);
             if (event) {
-                wishListResult.push(event);
+                SanityWishlist.push(event);
             }
         }
+
+        const localWishlist = attractions.filter(item => localWishlistIds.includes(item.id));
+
+        const wishListResult = [...SanityWishlist, ...localWishlist];
 
         const purchaseResult = [];
         for (let id of purchaseIds) {
@@ -114,7 +159,19 @@ export default function Dashboard() {
 
         setWishListEvents(wishListResult);
         setPreviousPurchaseEvents(purchaseResult);
-    };
+
+        const sharedEvents = {};
+        
+        for (let friend of user.friends || []) {
+            const sharedEvent = wishListResult.filter(event =>
+                friend.wishList?.some(friendEvent => friendEvent.apiId === event.id)
+            );
+            if (sharedEvent.length > 0) {
+                sharedEvents[friend._id] = sharedEvent;
+            }
+        }
+        setSharedFriendsEvent(sharedEvents);
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -142,10 +199,12 @@ export default function Dashboard() {
     const handleLogout = () => {
         localStorage.removeItem("login");
         localStorage.removeItem("userId");
+        localStorage.removeItem("localWishlist");
         setIsLoggedIn(false);
         setCurrentUser(null);
         setWishListEvents([]);
         setPreviousPurchaseEvents([]);
+        setSharedFriendsEvent([]);
     };
 
     return (
@@ -181,6 +240,25 @@ export default function Dashboard() {
                             <button className="logout-button" onClick={handleLogout}>Logg ut</button>
                         </article>
                     </section>
+
+                    <section>
+                        <article>
+                            <h2>Mine venner</h2>
+                            <ul>
+                                {currentUser?.friends?.map(friend => (
+                                    <li key={friend._id}>
+                                        {friend.image?.asset?.url && (
+                                            <img src={friend.image.asset.url} alt={friend.name} />
+                                        )}
+                                        <p>{friend.name}</p>
+                                        {sharedFriendsEvent[friend._id]?.map(event => (
+                                            <p key={event.id}>Du og {friend.name} har samme event i ønskelisten. Hva med å dra sammen på {event.name}?</p>
+                                        ))}
+                                    </li>
+                                ))}
+                            </ul>
+                        </article>
+                    </section>
                 
                     <section>
                         <article className="user-purchases">
@@ -200,12 +278,12 @@ export default function Dashboard() {
                         <article className="user-wishlist">
                             <h2>Min ønskeliste</h2>
                             <ul>
-                                {wishListEvents.map(event => (
-                                    <li key={event.id}>
-                                        <img src={event.image} alt={event.name} />
-                                        <h3>{event.name}</h3>
-                                        <p>{event.date}</p>
-                                        <Link to={`/sanity-event/${event.id}`}>Se mer om dette kjøpet</Link>
+                                {wishListEvents.map(item => (
+                                    <li key={item.id}>
+                                        <img src={item.image} alt={item.name} />
+                                        <h3>{item.name}</h3>
+                                        <p>{item.date}</p>
+                                        <Link to={`/sanity-event/${item.id}`}>Se mer om dette kjøpet</Link>
                                     </li>
                                 ))}
                             </ul>

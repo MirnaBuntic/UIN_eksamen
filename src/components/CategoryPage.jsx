@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CategoryCard from "./CategoryCard";
 import categories from "./DataCategory";
-import CategoryCardTwo from "./CategoryTwoCard";
 import "../styles/header.scss"
 import "../styles/categorypage.scss"
-
-
 
 
 
@@ -17,34 +14,34 @@ import "../styles/categorypage.scss"
 
 export default function CategoryPage () {
   const { slug } = useParams ();
-
   const categoryName = categories.find(c => c.slug === slug)?.name || "Kategori";
-
   const [attractions, setAttractions] =useState([]);
   const [events, setEvents] =useState([]);
   const [venues, setVenues] = useState([]);
-
   const [wishlist, setWishlist] = useState ([]);
+  const [filters, setFilters] = useState ({
+    date: "",
+    city: "",
+    country: "",
+    search: ""
+  });
 
+  const countryOptions = ["Norge", "Sverige", "Danmark"];
+  const cityOptions = ["Oslo", "Stockholm", "København"];
 
   const apiKey = "4P5afjX98PHm5yhdSLbee6G9PVKAQGB7";
-
-
-  const [search, setSearchTerm] = useState("");
-  const [filterDate, setFilterDate] = useState("");
-  const [filterCountry, setFilterCountry] = useState("");
-  const [filterCity, setFilterCity] = useState("");
-  
-
 
   useEffect(() => {
     const fetchData = async () => {
       
-      if (!slug && !search && !filterCity && !filterCountry && !filterDate) return;
-      
+
+      //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent
+      //søkte på how can i turn & into url in javascript på google
+
         const url ="https://app.ticketmaster.com/discovery/v2/suggest";
-        const params = `apikey=${apiKey}&locale=*&keyword=${slug || ""}`;
-      
+        const params = `apikey=${apiKey}&locale=*&keyword=${encodeURIComponent(slug || "")}`;
+
+  
         try {
           const attractionsRes = await fetch (`${url}?${params}&resource=attractions`);
           const attractionsData = await attractionsRes.json();
@@ -54,71 +51,130 @@ export default function CategoryPage () {
           const venueData = await venuesRes.json();
           setVenues(venueData._embedded?.venues || []);
 
-          const urlEvents = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&locale=*&size=20&classificationName=${slug || ""}`;
+
+
+          const urlEvents = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&locale=*&size=20&classificationName=${encodeURIComponent(slug || "")}`;
 
           const eventRes = await fetch (urlEvents);
           const eventData = await eventRes.json();
           setEvents(eventData._embedded?.events || []);
         } catch (error) {
           console.error("feil ved henting via suggest:", error)
+
         };
 
       }
 
         fetchData();
     }, [slug]);
-
-    
     
 
-    const toggleWishlist = (id) => {
-      setWishlist((prev) =>
-      prev.includes(id)? prev.filter((x) => x !== id) : [...prev, id]
-    );
+      useEffect(() => {
+      const stored = JSON.parse(localStorage.getItem("localWishlist")) || [];
+      setWishlist(stored);
+    }, []);
+
+    const toggleWishlist = (itemId) => {
+      setWishlist((prev) => {
+        const saved = prev.includes(itemId)
+        ? prev.filter((id) => id !== itemId)
+        : [...prev, itemId];
+
+        localStorage.setItem("localWishlist", JSON.stringify(saved));
+        return saved;
+      });
     };
-    
+
+
+    //https://stackoverflow.com/questions/66914812/filtering-data-using-react-hooks
+
+
+      const applyFilters = (items) => {
+
+        return items.filter((item) => {
+          const name = item.name?.toLowerCase () || "";
+          const city = item._embedded?.venues?.[0]?.city?.name?.toLowerCase() || item.city?.name?.toLowerCase() || "";
+          const country = item._embedded?.venues?.[0]?.country?.name?.toLowerCase() || item.country?.name?.toLowerCase() || "";
+          const date = item.dates?.start?.localeDate || "";
+
+         return (
+          (!filters.date || date === filters.date) &&
+          (!filters.city || city === filters.city) &&
+          (!filters.country || country === filters.country) &&
+          (!filters.search || name.includes(filters.search.toLowerCase()))
+         )
+          
+        })
+      };
+
+      const filteredEvents = applyFilters(events);
+      const filteredAttractions = applyFilters(attractions);
+      const filteredVenues = applyFilters (venues);
+
+
   return (
     <>
 
       <h1>{categoryName}</h1>
 
-      <div className="filter">
-        
-    
-
+      <section className="filters">
         <input
           type="date"
-          value={filterDate}
-          onChange={(e) => setFilterDate(e.target.value)}
+          value={filters.date}
+          onChange={(e) => setFilters({...filters, date: e.target.value})}
         />
 
+        <select 
+          value={filters.city}
+          onChange={(e) => setFilters({...filters, city: e.target.value })}>
+            <option value="">Velg by</option>
+            {cityOptions.map((city) => (
+              <option key={city} value={city}>
+                {city}
+          </option>
+            ))}
+          </select>
+
+
+          
+        <select 
+          value={filters.country}
+          onChange={(e) => setFilters({...filters, country: e.target.value })}>
+            <option value="">Velg land</option>
+            {countryOptions.map((country) => (
+              <option key={country} value={country}>
+                {country}
+          </option>
+            ))}
+          </select>
+        
+
+        
 
         <input
           type="text"
-          placeholder="Land"
-          value={filterCountry}
-          onChange={(e) => setFilterCountry(e.target.value)}
+          placeholder="Søk"
+          value={filters.search}
+          onChange={(e) => setFilters({...filters, search: e.target.value})}
         />
 
-        <input
-          type="text"
-          placeholder="By"
-          value={filterCity}
-          onChange={(e) => setFilterCity(e.target.value)}
-        />
-      
 
 
 
-      </div>
+      </section>
 
       <section className="Attraction">
         <h2>Attraksjoner</h2>
         <div>
-          {attractions.map((item) => (
-            <CategoryCardTwo
+          {filteredAttractions.map((item) => (
+            <CategoryCard
             key={item.id}
-            item={item}
+            item={{ ...item, 
+              date: item.dates?.start?.localDate,
+              time: item.dates?.start?.localTime,
+              venue: item._embedded?.venues?.[0]?.name,
+              city: item._embedded?.venues?.[0]?.city?.name,
+              country: item._embedded?.venues?.[0]?.country?.name}}
             isSaved={wishlist.includes(item.id)}
             onSave={() => toggleWishlist(item.id)}
             />
@@ -129,12 +185,12 @@ export default function CategoryPage () {
       <section className="Arrangement">
         <h2>Arrangementer</h2>
         <div>
-          {events.map((item) => (
+          {filteredEvents.map((item) => (
             <CategoryCard
             key={item.id}
             item={{
               ...item, 
-              date: item.dates?.start?.localeDate,
+              date: item.dates?.start?.localDate,
               time: item.dates?.start?.localTime,
               venue: item._embedded?.venues?.[0]?.name,
               city: item._embedded?.venues?.[0]?.city?.name,
@@ -150,10 +206,15 @@ export default function CategoryPage () {
       <section className="Venues">
         <h2>Spillesteder</h2>
         <div>
-          {venues.map((item) => (
-            <CategoryCardTwo
+          {filteredVenues.map((item) => (
+            <CategoryCard
             key={item.id}
-            item={item}
+            item={{ ...item, 
+              date: item.dates?.start?.localDate,
+              time: item.dates?.start?.localTime,
+              venue: item.name,
+              city: item._embedded?.venues?.[0]?.city?.name,
+              country: item._embedded?.venues?.[0]?.country?.name}}
             isSaved={wishlist.includes(item.id)}
             onSave={() => toggleWishlist(item.id)}
             />
@@ -164,4 +225,3 @@ export default function CategoryPage () {
     </>
   );
 }
-
