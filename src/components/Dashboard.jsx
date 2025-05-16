@@ -212,7 +212,7 @@ export default function Dashboard() {
                     </section>
 
                     <section>
-                        <article>
+                        <article className="friends">
                             <h2>Mine venner</h2>
                             <ul>
                                 {currentUser?.friends?.map(friend => (
