@@ -27,6 +27,7 @@ export default function Nav() {
 
             <Link to="/dashboard" className="nav_logginn" aria-label="Gå til innloggingsside">
                 {isLoggedIn ? "Min side" : "Logg inn"}
+            </Link>
           </div>
         </nav>
     );
