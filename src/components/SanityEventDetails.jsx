@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../styles/Sanityevent.scss"
-import { client } from "../sanityClient";
+import { client } from "../Sanity/sanityClient";
 
 
 export default function SanityEventDetails() {

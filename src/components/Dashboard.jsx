@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { client } from "../sanityClient";
+import { client } from "../Sanity/sanityClient";
 import '../styles/dashboard.scss'
 import "../styles/header.scss"
 
