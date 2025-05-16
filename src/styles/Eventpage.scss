@@ -88,7 +88,7 @@ nav{
         box-shadow: 0 3px 10px black;
         border-radius: 10px;
         max-width: 300px;
-        max-height: 400px;
+        max-height: 550px;
         min-height: fit-content;
         padding-bottom: 10px;
         min-width: 300px;
@@ -108,7 +108,7 @@ nav{
         }
 
         h3{
-            text-align: left;
+            text-align: center;
             padding-left: 0.6rem;
             font-size: 20px;
             font-weight: 800;
@@ -116,15 +116,16 @@ nav{
 
         .venue-date{
             display: flex;
-            justify-content: space-between;
             gap: 1rem;
             align-items: center;
             margin: 0.5rem 0;
-
+            
             p {
                 margin: 0;
                 font-weight: 500;
                 padding: 0.9rem;
+                text-align: center;
+
             }
         }
     }
