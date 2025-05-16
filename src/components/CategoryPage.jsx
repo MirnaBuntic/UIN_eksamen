@@ -18,12 +18,15 @@ export default function CategoryPage () {
   const [attractions, setAttractions] =useState([]);
   const [events, setEvents] =useState([]);
   const [venues, setVenues] = useState([]);
-  const [wishlist, setWishlist] = useState ([]);
   const [filters, setFilters] = useState ({
     date: "",
     city: "",
     country: "",
     search: ""
+  });
+
+  const [wishlist, setWishlist] = useState(() => {
+    return JSON.parse(localStorage.getItem("localWishlist")) || [];
   });
 
   const countryOptions = ["Norge", "Sverige", "Danmark"];
@@ -68,21 +71,14 @@ export default function CategoryPage () {
         fetchData();
     }, [slug]);
     
+    useEffect(() => {
+      localStorage.setItem("localWishlist", JSON.stringify(wishlist));
+    }, [wishlist]);
 
-      useEffect(() => {
-      const stored = JSON.parse(localStorage.getItem("localWishlist")) || [];
-      setWishlist(stored);
-    }, []);
-
-    const toggleWishlist = (itemId) => {
-      setWishlist((prev) => {
-        const saved = prev.includes(itemId)
-        ? prev.filter((id) => id !== itemId)
-        : [...prev, itemId];
-
-        localStorage.setItem("localWishlist", JSON.stringify(saved));
-        return saved;
-      });
+    const toggleWishlist = (id) => {
+      setWishlist((prev) =>
+      prev.includes(id)? prev.filter((x) => x !== id) : [...prev, id]
+      );
     };
 
 
