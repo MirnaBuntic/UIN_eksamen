@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { client } from "../Sanity/sanityClient";
 import '../styles/dashboard.scss'
 import "../styles/header.scss"
+import { fetchAllUsers, fetchUserById } from "../Sanity/sanityServices";
 
 
 
@@ -22,28 +23,7 @@ export default function Dashboard() {
     useEffect(() => {
         const getUsers = async () => {
             try {
-                const data = await client.fetch(`*[_type == "bruker"]{
-                    _id,
-                    username,
-                    name,
-                    email,
-                    age,
-                    image {
-                        asset -> {
-                            url
-                        }
-                    },
-                    wishList[]->{apiId},
-                    previousPurchases[]->{apiId},
-                    friends[]->{
-                        _id,
-                        name,
-                        image {
-                            asset -> { url }
-                        },
-                        wishList[]->{apiId}    
-                    }
-                }`);
+                const data = await fetchAllUsers(client);
                 setAllUsers(data);
             } catch (error) {
                 console.error("Skjedde noe feil ved fetch av brukene", error);
@@ -57,28 +37,7 @@ export default function Dashboard() {
         const storedUserId = localStorage.getItem("userId");
 
         if (storedLogin === "true" && storedUserId) {
-            client.fetch(`*[_type == "bruker" && _id == "${storedUserId}"][0]{
-                _id,
-                username,
-                name,
-                email,
-                age,
-                image {
-                    asset -> {
-                        url
-                    }
-                },
-                wishList[]->{apiId},
-                previousPurchases[]->{apiId},
-                friends[]->{
-                    _id,
-                    name,
-                    image {
-                        asset -> { url }
-                    },
-                    wishList[]->{apiId}    
-                }
-            }`).then((user) => {
+            fetchUserById(client, storedUserId).then((user) => {
                 if (user) {
                     setIsLoggedIn(true);
                     setCurrentUser(user);
@@ -188,7 +147,7 @@ export default function Dashboard() {
                             <input 
                             type="text"
                             name="username"
-                            placeholder="leoAjkic123"
+                            placeholder="erlingHaaland123"
                             onChange={handleChange}
                             className="login-input"
                             />
