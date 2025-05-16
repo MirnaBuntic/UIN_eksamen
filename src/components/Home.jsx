@@ -59,7 +59,7 @@ export default function Home({ attractions }) {
                 </div>
 
                 <h3 aria-live="polite">Hva skjer i {city}</h3>
-
+   
                 <div className="event_city" aria-label={`Arrangementer i ${city}`}>
                     {events.length > 0 ? (
                         events.map((event) => (
@@ -67,7 +67,7 @@ export default function Home({ attractions }) {
                         ))
                     ) : (
                         <div>
-                        <p>Ingen events funnet i {city}.</p>
+                            <p>Ingen events funnet i {city}.</p>
                        </div>
                     )}
                 </div>
