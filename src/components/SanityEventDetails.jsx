@@ -60,7 +60,7 @@ export default function SanityEventDetails() {
             <nav>
                 <ul>
                     <li>
-                        <Link to="/dashboard">Logg inn</Link>
+                        <Link to="/dashboard">Min side</Link>
                     </li>
                     <li>{">"}</li>
                     <li>{ticketData?.name}</li>

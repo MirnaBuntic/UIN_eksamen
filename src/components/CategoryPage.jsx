@@ -29,7 +29,6 @@ export default function CategoryPage () {
 
   const apiKey = "4P5afjX98PHm5yhdSLbee6G9PVKAQGB7";
 
-
   const [search, setSearchTerm] = useState("");
   const [filterDate, setFilterDate] = useState("");
   const [filterCountry, setFilterCountry] = useState("");
@@ -67,15 +66,23 @@ export default function CategoryPage () {
 
         fetchData();
     }, [slug]);
-
     
-    
+    useEffect(() => {
+      const stored = JSON.parse(localStorage.getItem("localWishlist")) || [];
+      setWishlist(stored);
+    }, []);
 
-    const toggleWishlist = (id) => {
-      setWishlist((prev) =>
-      prev.includes(id)? prev.filter((x) => x !== id) : [...prev, id]
-    );
+    const toggleWishlist = (itemId) => {
+      setWishlist((prev) => {
+        const saved = prev.includes(itemId)
+        ? prev.filter((id) => id !== itemId)
+        : [...prev, itemId];
+
+        localStorage.setItem("localWishlist", JSON.stringify(saved));
+        return saved;
+      });
     };
+
     
   return (
     <>

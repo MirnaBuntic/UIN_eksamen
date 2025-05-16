@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import categories from "./DataCategory";
 import '../styles/header.scss';
 
 export default function Nav() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const loggedIn = localStorage.getItem("login") === "true";
+        setIsLoggedIn(loggedIn);
+    }, []);
+
     return (
         <nav className="nav">
           <div className="nav_category_wrapper">
@@ -18,7 +25,7 @@ export default function Nav() {
             ))}
 
             <Link to="/dashboard" className="nav_logginn">
-                Logg inn
+                {isLoggedIn ? "Min side" : "Logg inn"}
             </Link>
           </div>
         </nav>

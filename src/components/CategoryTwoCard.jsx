@@ -7,7 +7,7 @@ export default function CategoryCardTwo ({item, isSaved, onSave}) {
     console.log(`${item.name} er ${isSaved ? "lagret" : "ikke lagret"}`);
 
     const imageUrl = item.images?.[0].url || "https://fakeimg.pl/600x400?text=No+image+found";
-const name = item.name || "Uten navn";
+    const name = item.name || "Uten navn";
    
 
     return (

@@ -48,8 +48,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home attractions={attractions} />}></Route>
         <Route path="/event/:slug" element={<EventPage attractions={attractions} />}></Route>
-        <Route path="/category/:slug" element={<CategoryPage attractions={attractions}/>}></Route>
-        <Route path="/dashboard" element={<Dashboard attractions={attractions}/>}></Route>
+        <Route path="/category/:slug" element={<CategoryPage />}></Route>
+        <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/sanity-event/:id" element={<SanityEventDetails />} />
       </Routes>
    </Layout>
