@@ -16,7 +16,6 @@ export default function Dashboard() {
     const [wishListEvents, setWishListEvents] = useState([]);
     const [previousPurchaseEvents, setPreviousPurchaseEvents] = useState([]);
     const [sharedFriendsEvent, setSharedFriendsEvent] = useState({});
-    const [attractions, setAttractions] = useState([]);
 
     const apiKey = '4P5afjX98PHm5yhdSLbee6G9PVKAQGB7';
 
@@ -87,28 +86,6 @@ export default function Dashboard() {
                 }
             });
         }
-    }, [attractions]);
-
-    useEffect(() => {
-        const fetchAttractions = async () => {
-            try {
-                const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?locale=*&apikey=${apiKey}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    const events = data._embedded?.events || [];
-                    const findAttractions = events.map(event => ({
-                        id: event.id,
-                        name: event.name,
-                        date: event.dates?.start?.localDate,
-                        image: event.images?.[0]?.url,
-                    }));
-                    setAttractions(findAttractions);
-                }
-            } catch (error) {
-                console.error("Skjedde noe feil ved henting av attractions", error);
-            }
-        };
-        fetchAttractions();
     }, []);
 
     const fetchSingleEvent = async (apiId) => {
@@ -135,19 +112,14 @@ export default function Dashboard() {
     const fetchEventDetails = async (user) => {
         const sanityWishlistIds = user.wishList?.map(item => item.apiId) || [];
         const purchaseIds = user.previousPurchases?.map(item => item.apiId) || [];
-        const localWishlistIds = JSON.parse(localStorage.getItem("localWishlist")) || [];
-
-        const SanityWishlist = [];
+        
+        const sanityWishlist = [];
         for (let id of sanityWishlistIds) {
             const event = await fetchSingleEvent(id);
             if (event) {
-                SanityWishlist.push(event);
+                sanityWishlist.push(event);
             }
         }
-
-        const localWishlist = attractions.filter(item => localWishlistIds.includes(item.id));
-
-        const wishListResult = [...SanityWishlist, ...localWishlist];
 
         const purchaseResult = [];
         for (let id of purchaseIds) {
@@ -157,13 +129,12 @@ export default function Dashboard() {
             }
         }
 
-        setWishListEvents(wishListResult);
+        setWishListEvents(sanityWishlist);
         setPreviousPurchaseEvents(purchaseResult);
 
         const sharedEvents = {};
-        
         for (let friend of user.friends || []) {
-            const sharedEvent = wishListResult.filter(event =>
+            const sharedEvent = sanityWishlist.filter(event =>
                 friend.wishList?.some(friendEvent => friendEvent.apiId === event.id)
             );
             if (sharedEvent.length > 0) {
@@ -199,7 +170,6 @@ export default function Dashboard() {
     const handleLogout = () => {
         localStorage.removeItem("login");
         localStorage.removeItem("userId");
-        localStorage.removeItem("localWishlist");
         setIsLoggedIn(false);
         setCurrentUser(null);
         setWishListEvents([]);
@@ -278,12 +248,12 @@ export default function Dashboard() {
                         <article className="user-wishlist">
                             <h2>Min ønskeliste</h2>
                             <ul>
-                                {wishListEvents.map(item => (
-                                    <li key={item.id}>
-                                        <img src={item.image} alt={item.name} />
-                                        <h3>{item.name}</h3>
-                                        <p>{item.date}</p>
-                                        <Link to={`/sanity-event/${item.id}`}>Se mer om dette kjøpet</Link>
+                                {wishListEvents.map(event => (
+                                    <li key={event.id}>
+                                        <img src={event.image} alt={event.name} />
+                                        <h3>{event.name}</h3>
+                                        <p>{event.date}</p>
+                                        <Link to={`/sanity-event/${event.id}`}>Se mer om dette kjøpet</Link>
                                     </li>
                                 ))}
                             </ul>
