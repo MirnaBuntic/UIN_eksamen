@@ -57,20 +57,20 @@ export default function SanityEventDetails() {
 
     return (
         <>
-            <nav>
+            <nav aria-label="Brødsmulesti">
                 <ul>
                     <li>
-                        <Link to="/dashboard">Min side</Link>
+                        <Link to="/dashboard" aria-label="Gå til dashbord">Min side</Link>
                     </li>
-                    <li>{">"}</li>
-                    <li>{ticketData?.name}</li>
+                    <li aria-hidden="true">{">"}</li>
+                    <li aria-current="page">{ticketData?.name}</li>
                 </ul>
             </nav>
 
             {ticketData ? (
-                <article className="eventdetailes">
+                <article className="eventdetailes" aria-label="Eventdetaljer">
                     <h1>{ticketData.name}</h1>
-                    {ticketData.image && <img src={ticketData.image} alt={ticketData.name} />}
+                    {ticketData.image && <img src={ticketData.image} alt={`Bilde av ${ticketDate.name}`} />}
                     <h3>Dato og sted</h3>
                     <p>Dato: {ticketData.date}</p>
                     <p>Sted: {ticketData.venue}</p>
@@ -78,17 +78,17 @@ export default function SanityEventDetails() {
                     <p>{ticketData.type}</p>
                 </article>
             ) : (
-                <p>Laster info om eventet...</p>
+                <p aria-live="polite">Laster info om eventet...</p>
             )}
 
             {relUsers.length > 0 && (
-                <article className="sanity-wishlist">
-                    <h2>Hvem har detta i ønskeliste</h2>
+                <article className="sanity-wishlist" aria-label="Brukere som har dette ønskelisten">
+                    <h2>Hvem har dette i ønskeliste</h2>
                     <ul>
                         {relUsers.map((user, index) => (
                             <li>
                                 {user.image?.asset?.url && (
-                                    <img src={user.image.asset.url} alt={user.name}></img>
+                                    <img src={user.image.asset.url} alt={`Profilbilde av ${user.name}`}></img>
                                 )}
                                 <p>{user.name}</p>
                             </li>

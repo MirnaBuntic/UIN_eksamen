@@ -1,0 +1,19 @@
+footer {
+    border-top: 1px solid #ccc;
+    font-size: 12px;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    color: #666;
+    background-color: #f9f9f9;*
+
+    a {
+        color: #0073e6;
+
+        &:hover,
+        &:focus {
+            color: #005bb5;
+        }
+    }
+}
+
