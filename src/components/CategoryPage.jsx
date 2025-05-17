@@ -12,7 +12,7 @@ import "../styles/categorypage.scss"
 //https://legacy.reactjs.org/docs/hooks-state.html
 
 
-export default function CategoryPage () {
+export default function CategoryPage ({ isLoggedIn }) {
   const { slug } = useParams ();
   const categoryName = categories.find(c => c.slug === slug)?.name || "Kategori";
   const [attractions, setAttractions] =useState([]);
@@ -74,6 +74,13 @@ export default function CategoryPage () {
     useEffect(() => {
       localStorage.setItem("localWishlist", JSON.stringify(wishlist));
     }, [wishlist]);
+
+    useEffect(() => {
+      if (!isLoggedIn) {
+        setWishlist([]);
+        localStorage.removeItem("localWishlist");
+      }
+    }, [isLoggedIn]);
 
     const toggleWishlist = (id) => {
       setWishlist((prev) =>

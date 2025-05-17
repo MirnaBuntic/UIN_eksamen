@@ -137,9 +137,9 @@ export default function Dashboard({ isLoggedIn, setIsLoggedIn }) {
     return (
        <div className="dashboard-container">
             {!isLoggedIn ? (
-                <section className="login-section">
+                <section className="login-section" aria-label="Innloggingsseksjon">
                     <h2>Logg inn</h2>
-                    <form className="login-form">
+                    <form className="login-form" aria-label="Innloggingsskjema">
                         <label className="login-label">
                             Brukernavn
                             <input 
@@ -148,6 +148,7 @@ export default function Dashboard({ isLoggedIn, setIsLoggedIn }) {
                             placeholder="erlingHaaland123"
                             onChange={handleChange}
                             className="login-input"
+                            aria-required="true"
                             />
                         </label>
 
@@ -157,25 +158,25 @@ export default function Dashboard({ isLoggedIn, setIsLoggedIn }) {
                 </section>
             ) : (
                 <>
-                    <section className="user-dashboard">
-                        <article className="user-profile">
-                            <h1>Min side</h1>
+                    <section className="user-dashboard" aria-labelledby="user-dashboard-heading" role="region">
+                        <article className="user-profile" aria-label="Brukerprofil">
+                            <h1 id="user-dahboard-heading">Min side</h1>
                             <h2 className="user-name">{currentUser?.name}</h2>
-                            {currentUser?.image?.asset?.url && <img className="user-image" src={currentUser?.image?.asset?.url} alt={currentUser?.name} />}
+                            {currentUser?.image?.asset?.url && <img className="user-image" src={currentUser?.image?.asset?.url} alt={`Profilbilde av ${currentUser?.name}`} />}
                             <p className="user-email">Email: {currentUser?.email}</p>
                             <p className="user-age">Alder: {currentUser?.age} år</p>
                             <button className="logout-button" onClick={handleLogout}>Logg ut</button>
                         </article>
                     </section>
 
-                    <section>
+                    <section aria-labelledby="friends-heading" role="region">
                         <article className="friends">
                             <h2>Mine venner</h2>
                             <ul>
                                 {currentUser?.friends?.map(friend => (
-                                    <li key={friend._id}>
+                                    <li key={friend._id} aria-label={`Venn: ${friend.name}`}>
                                         {friend.image?.asset?.url && (
-                                            <img src={friend.image.asset.url} alt={friend.name} />
+                                            <img src={friend.image.asset.url} alt={`Bilde av ${friend.name}`} />
                                         )}
                                         <p>{friend.name}</p>
                                         {sharedFriendsEvent[friend._id]?.map(event => (
@@ -187,30 +188,30 @@ export default function Dashboard({ isLoggedIn, setIsLoggedIn }) {
                         </article>
                     </section>
                 
-                    <section>
-                        <article className="user-purchases">
+                    <section aria-labelledby="purchases-and-wishlist-heading" role="region">
+                        <article className="user-purchases" aria-label="Tidligere kjøp">
                             <h2>Mine kjøp</h2>
                             <ul>
                                 {previousPurchaseEvents.map(event => (
-                                    <li key={event.id}>
-                                        <img src={event.image} alt={event.name} />
+                                    <li key={event.id} aria-label={`Tidligere kjøp: ${event.name}`}>
+                                        <img src={event.image} alt={`Bilde av ${event.name}`} />
                                         <h3>{event.name}</h3>
                                         <p>{event.date}</p>
-                                        <Link to={`/sanity-event/${event.id}`}>Se mer om dette kjøpet</Link>
+                                        <Link to={`/sanity-event/${event.id}`} aria-label={`Se mer informasjon om ${event.name}`}>Se mer om dette kjøpet</Link>
                                     </li>
                                 ))}
                             </ul>
                         </article>
 
-                        <article className="user-wishlist">
+                        <article className="user-wishlist" aria-label="Ønskeliste">
                             <h2>Min ønskeliste</h2>
                             <ul>
                                 {wishListEvents.map(event => (
-                                    <li key={event.id}>
-                                        <img src={event.image} alt={event.name} />
+                                    <li key={event.id} aria-label={event.name}>
+                                        <img src={event.image} alt={`Bilde av ${event.name}`} />
                                         <h3>{event.name}</h3>
                                         <p>{event.date}</p>
-                                        <Link to={`/sanity-event/${event.id}`}>Se mer om dette kjøpet</Link>
+                                        <Link to={`/sanity-event/${event.id}`} aria-label={`Se mer informasjon om ${event.name}`}>Se mer om dette kjøpet</Link>
                                     </li>
                                 ))}
                             </ul>
