@@ -98,7 +98,7 @@ export default function CategoryPage ({ isLoggedIn }) {
           const name = item.name?.toLowerCase () || "";
           const city = item._embedded?.venues?.[0]?.city?.name?.toLowerCase() || item.city?.name?.toLowerCase() || "";
           const country = item._embedded?.venues?.[0]?.country?.name?.toLowerCase() || item.country?.name?.toLowerCase() || "";
-          const date = item.dates?.start?.localeDate || "";
+          const date = item.dates?.start?.localDate || "";
 
          return (
           (!filters.date || date === filters.date) &&
