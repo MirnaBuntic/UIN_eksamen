@@ -7,12 +7,11 @@ import { fetchAllUsers, fetchUserById } from "../Sanity/sanityServices";
 
 
 
-export default function Dashboard() {
+export default function Dashboard({ isLoggedIn, setIsLoggedIn }) {
     
     const [userLogin, setUserLogin] = useState({});
     const [allUsers, setAllUsers] = useState([]);
     const [currentUser, setCurrentUser] = useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [error, setError] = useState("");
     const [wishListEvents, setWishListEvents] = useState([]);
     const [previousPurchaseEvents, setPreviousPurchaseEvents] = useState([]);
@@ -39,7 +38,6 @@ export default function Dashboard() {
         if (storedLogin === "true" && storedUserId) {
             fetchUserById(client, storedUserId).then((user) => {
                 if (user) {
-                    setIsLoggedIn(true);
                     setCurrentUser(user);
                     fetchEventDetails(user);
                 }

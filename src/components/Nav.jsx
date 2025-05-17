@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import categories from "./DataCategory";
 import '../styles/header.scss';
 
-export default function Nav() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    useEffect(() => {
-        const loggedIn = localStorage.getItem("login") === "true";
-        setIsLoggedIn(loggedIn);
-    }, []);
+export default function Nav({ isLoggedIn }) {
 
     return (
         <nav className="nav" aria-label="Hovedmeny">

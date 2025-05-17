@@ -13,6 +13,9 @@ import "./styles/app.scss"
 
 export default function App() {
   const [attractions, setAttractions] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("login") === "true"
+  );
 
   const getAttractions = async () => {
 
@@ -44,12 +47,12 @@ export default function App() {
   }, []);
 
   return (
-   <Layout>
+   <Layout isLoggedIn={isLoggedIn}>
       <Routes>
         <Route path="/" element={<Home attractions={attractions} />}></Route>
         <Route path="/event/:slug" element={<EventPage attractions={attractions} />}></Route>
         <Route path="/category/:slug" element={<CategoryPage />}></Route>
-        <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}></Route>
         <Route path="/sanity-event/:id" element={<SanityEventDetails />} />
       </Routes>
    </Layout>

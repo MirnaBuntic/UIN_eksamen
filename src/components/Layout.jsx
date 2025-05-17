@@ -3,11 +3,10 @@ import Footer from "./Footer"
 import '../styles/header.scss'
 
 
-
-export default function Layout({ children }) {
+export default function Layout({ children, isLoggedIn }) {
   return (
     <>
-      <Header />
+      <Header isLoggedIn={isLoggedIn} />
 
       <main>
         {children}
