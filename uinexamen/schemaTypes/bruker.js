@@ -7,7 +7,7 @@ export default {
             name: "username",
             title: "Brukernavn",
             type: "string",
-            validation: (Rule) => Rule.required() //Chatgpt nr6
+            validation: (Rule) => Rule.required() //Chatgpt nr5
         },
         {
             name: 'name',

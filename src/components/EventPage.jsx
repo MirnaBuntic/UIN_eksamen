@@ -46,9 +46,9 @@ export default function EventPage({ attractions }) {
             //Hämtar genre genom att gå igenom event och se efter genre. Genrer som heter undefiend filtreras bort
             const genres = events
                 .map(event => event.classifications?.[0]?.genre?.name)
-                .filter(genre => genre && genre !== 'Undefined'); //Chatgpt visade hur man filtrerar bort undefined men eftersom det inte var ett värde så var jag tvungen att sätta det som en string. nr 3
+                .filter(genre => genre && genre !== 'Undefined'); 
             //Tar bort dubletter. alltså genre med samma namn
-            const singleGenres = [...new Set(genres)]; //chatgpt nr 4
+            const singleGenres = [...new Set(genres)]; //chatgpt nr 3
             setGenres(singleGenres.length > 0 ? singleGenres : ["Ingen genre tilgjengelig"]);
 
             //Hämtar sociala medielänkar, finns det inget så kommer det inte upp något alls
@@ -113,7 +113,8 @@ export default function EventPage({ attractions }) {
                 </article>
 
                 {/*Sektion för sociala medier*/}
-                {/*Fick hjälp av chatgpt med användningen av object.keys för att få det som var i console logen synligt på sidan. nr5*/}
+                {/*Fick hjälp av chatgpt med användningen av object.keys för att få det som var i console logen synligt på sidan. nr4*/}
+                {/*Anledningen till att jag använder object.keys är för att socialmedia är ett object och inte en array, därav kan jag inte loopa över direkt med .map*/}
                 <article className="SoMe" aria-label="Festivalens sosiale medier">
                     <h3>Følg oss på sosiale medier:</h3>
                     {/*Om länkar finns så visas de här*/}
