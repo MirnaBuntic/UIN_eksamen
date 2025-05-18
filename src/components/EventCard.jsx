@@ -1,12 +1,20 @@
 import { Link } from "react-router-dom";
 
+//Tar emot props från home.jsx
 export default function EventCard({ attraction, event }) {
     
+    //If test för att skilja på attraction del och event del
+    //Här hade jag lite svårt att skilja på delarana när denna komponent skulle hålla på såpass mycket info.
+    //Attraction delen står för hela "förstasidan" på eventpage dvs sommarens festivaler och hva skjer i verdens storbyer
     if (attraction) {
 
+        //Variabel som håller bildens url från attractions objektet
         const imageUrl = attraction.images?.[0]?.url;
+
+        //slug making
         const slug = attraction.name.toLowerCase().replace(/\s+/g, '-');
       
+        //Variabler som håller datum, tid och platsinformation
         const eventDate = attraction.dates?.start?.localDate;
         const eventTime = attraction.dates?.start?.localTime;
         const venue = attraction._embedded?.venues?.[0];
@@ -14,6 +22,8 @@ export default function EventCard({ attraction, event }) {
         const country = venue?.country?.name;
         const venueName = venue?.name;
     
+        //Checkar om det är ett event. Denna boolean har jag använt för att skiljer på den översta delen av "förstasidan" på eventpage som innehåller festivalkort,
+        //och den nedre delen av sidan som innehåller sektionen med världens events
         const isEvent = Boolean(eventDate && eventTime && city && country);
     
         return (
@@ -45,6 +55,7 @@ export default function EventCard({ attraction, event }) {
         );
     }
 
+    //Denna del visar festivalpassen
     if (event) {
         return (
             <article aria-label={`Informasjon om arrangement: ${event.name}`} tabIndex="0">
