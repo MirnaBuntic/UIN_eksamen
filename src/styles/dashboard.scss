@@ -169,7 +169,7 @@ margin: 0;
 }
 
 @media (min-width: 800px){
-     .user-purchases, .user-wishlist {
+    .user-purchases, .user-wishlist {
 
         margin:0;
         ul{
@@ -177,6 +177,20 @@ margin: 0;
             
             
         }
+    }
+
+    .user-wishlist {
+        margin-bottom: 5rem;
+    }
+
+    .purchases-wishlist {
+        display: flex;
+        flex-direction: row;
+
+    }
+
+    .dashboard-container {
+        gap: 0;
     }
 }
 

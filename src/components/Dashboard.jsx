@@ -254,7 +254,7 @@ export default function Dashboard({ isLoggedIn, setIsLoggedIn }) {
                     </section>
 
                     {/*Sektion för tidigere kjöp och önskeliste*/}
-                    <section aria-labelledby="purchases-and-wishlist-heading" role="region">
+                    <section className="purchases-wishlist" aria-labelledby="purchases-and-wishlist-heading" role="region" >
                         <article className="user-purchases" aria-label="Tidligere kjøp">
                             <h2>Mine kjøp</h2>
                             <ul>
