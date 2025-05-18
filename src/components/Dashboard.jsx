@@ -4,6 +4,7 @@ import { client } from "../Sanity/sanityClient";
 import '../styles/dashboard.scss'
 import "../styles/header.scss"
 import { fetchAllUsers, fetchUserById } from "../Sanity/sanityServices";
+import EventCard from "./EventCard";
 
 
 //Hämtar props från app.jsx
@@ -260,9 +261,7 @@ export default function Dashboard({ isLoggedIn, setIsLoggedIn }) {
                                 {/*Loopar genom och visar tidigare kjöpte events*/}
                                 {previousPurchaseEvents.map(event => (
                                     <li key={event.id} aria-label={`Tidligere kjøp: ${event.name}`}>
-                                        <img src={event.image} alt={`Bilde av ${event.name}`} />
-                                        <h3>{event.name}</h3>
-                                        <p>{event.date}</p>
+                                        <EventCard event={event} />
                                         <Link to={`/sanity-event/${event.id}`} aria-label={`Se mer informasjon om ${event.name}`}>Se mer om dette kjøpet</Link>
                                     </li>
                                 ))}
@@ -275,9 +274,7 @@ export default function Dashboard({ isLoggedIn, setIsLoggedIn }) {
                                 {/*Loopar genom och visar alla events i önskelistan*/}
                                 {wishListEvents.map(event => (
                                     <li key={event.id} aria-label={event.name}>
-                                        <img src={event.image} alt={`Bilde av ${event.name}`} />
-                                        <h3>{event.name}</h3>
-                                        <p>{event.date}</p>
+                                        <EventCard event={event} />
                                         <Link to={`/sanity-event/${event.id}`} aria-label={`Se mer informasjon om ${event.name}`}>Se mer om dette kjøpet</Link>
                                     </li>
                                 ))}

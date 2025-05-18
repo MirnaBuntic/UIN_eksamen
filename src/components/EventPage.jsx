@@ -46,7 +46,7 @@ export default function EventPage({ attractions }) {
             //Hämtar genre genom att gå igenom event och se efter genre. Genrer som heter undefiend filtreras bort
             const genres = events
                 .map(event => event.classifications?.[0]?.genre?.name)
-                .filter(genre => genre && genre !== 'Undefined'); 
+                .filter(genre => genre && genre !== 'Undefined'); //Här var jag tvungen att filtrera bort en string som heter undefiend efter som det tydligen inte var ett värde, utan just en string på ticketmaster.
             //Tar bort dubletter. alltså genre med samma namn
             const singleGenres = [...new Set(genres)]; //chatgpt nr 3
             setGenres(singleGenres.length > 0 ? singleGenres : ["Ingen genre tilgjengelig"]);
