@@ -24,7 +24,25 @@
     }
 }
 
+.logout-button{
+    margin-bottom: 2rem;
+}
+
+.dashboard-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6rem;
+
+    h1{
+    width: 100%;
+    }
+}
+
+
 .user-dashboard{
+    margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,13 +50,20 @@
 }
 
  .friends{
-
+    margin: 0;
     h2{
         text-align: center;
     }
     ul{
+        padding:0;
+
+        li{
         list-style: none;
         color: #000;
+        
+        
+        height: 400px;
+        }
 
     }
 
@@ -46,6 +71,7 @@
 
 
 .user-profile{
+margin: 0;
 
     h2{
         text-align: center;
@@ -56,24 +82,29 @@
 }
 
 .user-purchases{
+    margin:0;
+    
+       h2{
+            width: 100%;
+            text-align: center;
+            
+        }
+
     ul{
         padding: 0;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-    }
         
-
-        h2{
-            width: 100%;
-            text-align: center;
-            
-        }
+    } 
         
         li{
             list-style: none;
-            box-shadow: 0 3px 10px black;
-            background-color: white;
+
+            article{
+                margin:0;
+            }
+           
             
 
             p{
@@ -86,12 +117,27 @@
         }
     }
 
+    article{
+        
+        img{
+        width: 100%;
+        min-width: 250px;
+        max-width: 250px;
+        min-height: 350px;
+        max-height: 350px;
+        height: auto;
+        
+        }
+    }
+
 
 .user-wishlist{
+    margin:0;
     padding: 0;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    
 
     h2{
         width:100%;
@@ -104,8 +150,10 @@
 
         li{
             list-style: none;
-            box-shadow: 0 3px 10px black;
-            background-color: white;
+            
+            article{
+                margin:0;
+            }
             
 
             p{
@@ -122,12 +170,28 @@
 
 @media (min-width: 800px){
     .user-purchases, .user-wishlist {
+
+        margin:0;
         ul{
             flex-direction: row !important;
             
             
         }
     }
+
+    .user-wishlist {
+        margin-bottom: 5rem;
+    }
+
+    .purchases-wishlist {
+        display: flex;
+        flex-direction: row;
+
+    }
+
+    .dashboard-container {
+        gap: 0;
+    }
 }
 
-
+//-- Skjønte ikke helt hvordan jeg skulle få seksjonene ved siden av hverandre, fikk derfor litt hjelp av Hanna Hänel Sørum til dette--//
