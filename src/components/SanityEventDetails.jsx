@@ -79,7 +79,7 @@ export default function SanityEventDetails() {
             {/* Brödsmule stig så att brukeren vet på vilekn sida man befinner sig och kan gå tillbaka till den tidigare sidan*/}
             <nav aria-label="Brødsmulesti">
                 <ul>
-                    <li>
+                    <li className="underline">
                         <Link to="/dashboard" aria-label="Gå til dashbord">Min side</Link>
                     </li>
                     <li aria-hidden="true">{">"}</li>
