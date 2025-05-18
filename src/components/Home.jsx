@@ -56,7 +56,7 @@ export default function Home({ attractions }) {
                 ))}
             </section>
 
-            <section aria-label="Arrangementer i verdens storbyer" tabIndex="0"> 
+            <section className="storbyer" aria-label="Arrangementer i verdens storbyer" tabIndex="0"> 
                 <h2>Hva skjer i verdens storbyer!</h2>
 
                 <div className="button-container" aria-label="Velg en av storbyene for å vise arragementer">

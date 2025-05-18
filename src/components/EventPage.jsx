@@ -90,7 +90,7 @@ export default function EventPage({ attractions }) {
             {/*Brödsmulestig för att göra det tydligt för brukaren vart man befinner sig och ger möjlighet för att ta sig tillbaka till föregående sida*/}
             <nav aria-label="Brødsmulesti">
                 <ul>
-                    <li>
+                    <li className="underline">
                         <Link to="/" aria-label="Gå til startsiden">Startsiden</Link>
                     </li>
                     <li aria-hidden="true">{">"}</li>

@@ -14,17 +14,25 @@ main{
 }
 
 nav{
+
     ul{
         color:black;
-        text-decoration: underline;
+        
         a{
             color: black;
         }
 
         li{
             color: black;
+            
+
         }
         }
+
+    }
+
+    .underline{
+        text-decoration: underline;
     }
 
 .Sjanger{
@@ -88,8 +96,8 @@ nav{
         box-shadow: 0 3px 10px black;
         border-radius: 10px;
         max-width: 300px;
-        max-height: 550px;
-        min-height: fit-content;
+        max-height: 400px;
+        min-height: 400px;
         padding-bottom: 10px;
         min-width: 300px;
         color: black;
