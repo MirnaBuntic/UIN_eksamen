@@ -1,7 +1,8 @@
 import React from "react";
 import "../styles/footer.scss"
 
-
+//Lager en footer med en klikkbar link til ticketmaster APO docs som åpner
+//i ett nytt vindu når man klikker på den.
 export default function Footer () {
     return (
         <footer aria-label="Footer med ticketmaster API attributt">

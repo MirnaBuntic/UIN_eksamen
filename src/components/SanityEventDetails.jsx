@@ -68,14 +68,14 @@ export default function SanityEventDetails() {
             </nav>
 
             {ticketData ? (
-                <article className="eventdetailes" aria-label="Eventdetaljer">
-                    <h1>{ticketData.name}</h1>
-                    {ticketData.image && <img src={ticketData.image} alt={`Bilde av ${ticketData.name}`} />}
-                    <h3>Dato og sted</h3>
-                    <p>Dato: {ticketData.date}</p>
-                    <p>Sted: {ticketData.venue}</p>
-                    <h3>Sjanger</h3>
-                    <p>{ticketData.type}</p>
+                <article className="eventdetailes" aria-label="Eventdetaljer" tabIndex="0">
+                    <h1 tabIndex="0">{ticketData.name}</h1>
+                    {ticketData.image && <img src={ticketData.image} alt={`Bilde av ${ticketData.name}`} tabIndex="0" />}
+                    <h3 tabIndex="0">Dato og sted</h3>
+                    <p>Dato: {ticketData.date} || "Ukjent dato"</p>
+                    <p>Sted: {ticketData.venue || "Ukjent sted"}</p>
+                    <h3 tabIndex="0">Sjanger</h3>
+                    <p>{ticketData.type || "Ingen sjanger oppgitt"}</p>
                 </article>
             ) : (
                 <p aria-live="polite">Laster info om eventet...</p>
@@ -83,7 +83,7 @@ export default function SanityEventDetails() {
 
             {relUsers.length > 0 && (
                 <article className="sanity-wishlist" aria-label="Brukere som har dette ønskelisten">
-                    <h2>Hvem har dette i ønskeliste</h2>
+                    <h2 tabIndex="0">Hvem har dette i ønskeliste</h2>
                     <ul>
                         {relUsers.map((user) => (
                             <li>

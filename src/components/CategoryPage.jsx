@@ -129,7 +129,7 @@ export default function CategoryPage ({ isLoggedIn }) {
 
         <select 
           value={filters.city}
-          onChange={(e) => setFilters({...filters, city: e.target.value })}>
+          onChange={(e) => setFilters({...filters, city: e.targe.value.toLowerCase() })}>
             <option value="">Velg by</option>
             {cityOptions.map((city) => (
               <option key={city} value={city}>
@@ -142,7 +142,7 @@ export default function CategoryPage ({ isLoggedIn }) {
           
         <select 
           value={filters.country}
-          onChange={(e) => setFilters({...filters, country: e.target.value })}>
+          onChange={(e) => setFilters({...filters, country: e.target.value.toLowerCase() })}>
             <option value="">Velg land</option>
             {countryOptions.map((country) => (
               <option key={country} value={country}>

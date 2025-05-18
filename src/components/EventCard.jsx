@@ -19,9 +19,9 @@ export default function EventCard({ attraction, event }) {
         return (
             <>
                 {!isEvent && (
-                    <article aria-label={`Informasjon om attraksjon med navn: ${attraction.name}`}>
+                    <article aria-label={`Informasjon om attraksjon med navn: ${attraction.name}`} tabIndex="0">
                         {imageUrl && <img src={imageUrl} alt={`Bilde av ${attraction.name}`} />}
-                        <h3>{attraction.name}</h3>
+                        <h3 tabIndex="0">{attraction.name}</h3>
                         <Link to={`/event/${slug}`}
                         aria-label={`Les mer om ${attraction.name}`}>Les mer om {attraction.name}</Link>
                     </article>
@@ -30,9 +30,10 @@ export default function EventCard({ attraction, event }) {
                 {isEvent && (
                     <article 
                         className="card"
-                        aria-label={`Arrangement: ${attraction.name} i ${city}, ${country} på ${venueName}`}>
+                        aria-label={`Arrangement: ${attraction.name} i ${city}, ${country} på ${venueName}`} 
+                        tabIndex="0">
                         {imageUrl && <img src={imageUrl} className="card-img" alt={`Bilde av ${attraction.name}`} />}
-                        <h3>{attraction.name}</h3> 
+                        <h3 tabIndex="0">{attraction.name}</h3> 
                         <p>{eventDate}</p>
                         <p>{eventTime}</p>
                         <p>{country}</p>
@@ -46,16 +47,16 @@ export default function EventCard({ attraction, event }) {
 
     if (event) {
         return (
-            <article aria-label={`Informasjon om arrangement: ${event.name}`}>
+            <article aria-label={`Informasjon om arrangement: ${event.name}`} tabIndex="0">
                 {event.image && <img src={event.image} alt={`Bilde av ${event.name}`} />}
-                <h3>{event.name}</h3>
+                <h3 tabIndex="0">{event.name}</h3>
                 <div className="venue-date">
                     <p>{event.venue}</p>
                     <p>{event.date}</p>
                 </div>
                 <div className="button-flex"> 
-                    <button type="button" aria-label={`Kjøp billetter til ${event.name}`}>Kjøp</button>
-                    <button type="button" aria-label={`Legg til ${event.name} til i ønskelisten`}>Legg til i ønskeliste</button>
+                    <button type="button" aria-label={`Kjøp billetter til ${event.name}`} tabIndex ="0">Kjøp</button>
+                    <button type="button" aria-label={`Legg til ${event.name} til i ønskelisten`} tabIndex="0">Legg til i ønskeliste</button>
                 </div>     
             </article>
         )

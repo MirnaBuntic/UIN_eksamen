@@ -77,14 +77,14 @@ export default function EventPage({ attractions }) {
                         <Link to="/" aria-label="Gå til startsiden">Startsiden</Link>
                     </li>
                     <li aria-hidden="true">{">"}</li>
-                    <li aria-current="page">{attraction.name}</li>
+                    <li aria-current="page" tabIndex="0">{attraction.name}</li>
                 </ul>
             </nav>
 
             <h2>{attraction.name}</h2>
 
             <section aria-label="Informasjon om sjanger og sosiale medier">
-                <article className="Sjanger" aria-label="Sjangere">
+                <article className="Sjanger" aria-label="Sjangere" tabIndex="0">
                     <h3>Sjanger:</h3>
                     <ul>
                         {genres.map((genre, index) => (
