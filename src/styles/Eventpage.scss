@@ -89,6 +89,7 @@ nav{
     h2{
         margin:0;
         width: 100%;
+        text-align: center;
     }
     
     article{
@@ -96,8 +97,8 @@ nav{
         box-shadow: 0 3px 10px black;
         border-radius: 10px;
         max-width: 300px;
-        max-height: 400px;
-        min-height: 400px;
+        max-height: 500px;
+        min-height: 500px;
         padding-bottom: 10px;
         min-width: 300px;
         color: black;
@@ -141,7 +142,9 @@ nav{
 
 .artister{
     
-  
+  h2{
+    text-align: center;
+  }
 
     ul{
         padding:0;
