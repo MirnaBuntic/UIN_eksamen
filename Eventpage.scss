@@ -1,0 +1,173 @@
+*{
+    box-sizing: border-box;
+   
+}
+
+main{
+    h2{
+        margin-top: 1rem;
+        font-size: 25px;
+        padding-left: 1rem;
+        margin-bottom: 2rem;
+        text-align: left;
+    }
+}
+
+nav{
+    ul{
+        color:black;
+        text-decoration: underline;
+        a{
+            color: black;
+        }
+
+        li{
+            color: black;
+        }
+        }
+    }
+
+.Sjanger{
+
+    text-align: left;
+    margin-bottom: 0rem;
+
+    h3{
+        font-size: 20px;
+    }
+
+
+    ul{
+        padding: 0;
+        li{
+            list-style:none;
+            color: black;
+        }
+    }
+
+}
+
+.SoMe{
+
+    padding: 0;
+    
+ 
+    h3{
+        text-align: left;
+        font-size: 20px;
+    }
+
+    ul{
+        display: flex;
+        padding: 0;
+        padding-left: 1rem;
+        justify-content: center;
+        margin: 0;
+        li{
+            list-style: none;
+            padding: 1rem;
+
+            a{
+                border-radius: 10px;
+            }
+
+            
+        }
+    }
+}
+
+
+.festivaler{
+    h2{
+        margin:0;
+        width: 100%;
+    }
+    
+    article{
+        border: #000;
+        box-shadow: 0 3px 10px black;
+        border-radius: 10px;
+        max-width: 300px;
+        max-height: 550px;
+        min-height: fit-content;
+        padding-bottom: 10px;
+        min-width: 300px;
+        color: black;
+
+        .button-flex{
+            display: flex;
+            justify-content: space-between;
+            margin: 0.6rem;
+            align-items: center;
+           
+        }
+
+        button {
+            padding: 1rem;
+
+        }
+
+        h3{
+            text-align: center;
+            padding-left: 0.6rem;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .venue-date{
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin: 0.5rem 0;
+            
+            p {
+                margin: 0;
+                font-weight: 500;
+                padding: 0.9rem;
+                text-align: center;
+
+            }
+        }
+    }
+}
+
+.artister{
+    
+  
+
+    ul{
+        padding:0;
+        margin:0;
+
+        li{
+            list-style: none;
+            margin: 4rem auto;
+            figure{
+                min-width: 200px;
+                img{
+                    width: 100%;
+                    max-width: 300px;
+                    min-width: 300px;
+                    max-height: 300px;
+                    min-height: 300px;
+                    height: auto;
+                    object-fit: cover;
+                    align-items: center;
+                }
+                figcaption{
+                    color:black;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+@media (min-width: 800px) {
+    .artister{
+        ul{
+            display: flex;
+            flex-wrap:wrap;
+
+        }
+    }
+}
