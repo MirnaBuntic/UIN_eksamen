@@ -220,9 +220,9 @@ export default function Dashboard({ isLoggedIn, setIsLoggedIn }) {
             //Om brukeren är inloggad visas istället denna del
                 <>
                     {/*Sektion för brukerprofilen*/}
+                    <h1 id="user-dahboard-heading">Min side</h1>
                     <section className="user-dashboard" aria-labelledby="user-dashboard-heading" role="region">
                         <article className="user-profile" aria-label="Brukerprofil">
-                            <h1 id="user-dahboard-heading">Min side</h1>
                             <h2 className="user-name">{currentUser?.name}</h2>
                             {currentUser?.image?.asset?.url && <img className="user-image" src={currentUser?.image?.asset?.url} alt={`Profilbilde av ${currentUser?.name}`} />}
                             <p className="user-email">Email: {currentUser?.email}</p>
