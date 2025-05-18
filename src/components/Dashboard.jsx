@@ -261,7 +261,7 @@ export default function Dashboard({ isLoggedIn, setIsLoggedIn }) {
                                 {/*Loopar genom och visar tidigare kjöpte events*/}
                                 {previousPurchaseEvents.map(event => (
                                     <li key={event.id} aria-label={`Tidligere kjøp: ${event.name}`}>
-                                        <EventCard event={event} />
+                                        <EventCard event={event} showButtons={false} />
                                         <Link to={`/sanity-event/${event.id}`} aria-label={`Se mer informasjon om ${event.name}`}>Se mer om dette kjøpet</Link>
                                     </li>
                                 ))}
@@ -274,7 +274,7 @@ export default function Dashboard({ isLoggedIn, setIsLoggedIn }) {
                                 {/*Loopar genom och visar alla events i önskelistan*/}
                                 {wishListEvents.map(event => (
                                     <li key={event.id} aria-label={event.name}>
-                                        <EventCard event={event} />
+                                        <EventCard event={event} showButtons={false} />
                                         <Link to={`/sanity-event/${event.id}`} aria-label={`Se mer informasjon om ${event.name}`}>Se mer om dette kjøpet</Link>
                                     </li>
                                 ))}

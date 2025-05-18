@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 //Tar emot props från home.jsx
-export default function EventCard({ attraction, event }) {
+export default function EventCard({ attraction, event, showButtons = true }) {
     
     //If test för att skilja på attraction del och event del
     //Här hade jag lite svårt att skilja på delarana när denna komponent skulle hålla på såpass mycket info.
@@ -65,10 +65,12 @@ export default function EventCard({ attraction, event }) {
                     <p>{event.venue}</p>
                     <p>{event.date}</p>
                 </div>
-                <div className="button-flex"> 
-                    <button type="button" aria-label={`Kjøp billetter til ${event.name}`} tabIndex ="0">Kjøp</button>
-                    <button type="button" aria-label={`Legg til ${event.name} til i ønskelisten`} tabIndex="0">Legg til i ønskeliste</button>
-                </div>     
+                {showButtons && (
+                    <div className="button-flex"> 
+                        <button type="button" aria-label={`Kjøp billetter til ${event.name}`} tabIndex ="0">Kjøp</button>
+                        <button type="button" aria-label={`Legg til ${event.name} til i ønskelisten`} tabIndex="0">Legg til i ønskeliste</button>
+                    </div>  
+                )}   
             </article>
         )
     }
