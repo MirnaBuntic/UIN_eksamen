@@ -12,25 +12,18 @@ import "../styles/categorypage.scss"
 //https://legacy.reactjs.org/docs/hooks-state.html
 
 
-export default function CategoryPage ({ isLoggedIn }) {
+export default function CategoryPage () {
   const { slug } = useParams ();
   const categoryName = categories.find(c => c.slug === slug)?.name || "Kategori";
   const [attractions, setAttractions] =useState([]);
   const [events, setEvents] =useState([]);
   const [venues, setVenues] = useState([]);
-  const [filters, setFilters] = useState ({
-    date: "",
-    city: "",
-    country: "",
-    search: ""
-  });
+  const [selectedCountry, setSelectedCountry] = useState("");
+ 
 
   const [wishlist, setWishlist] = useState(() => {
     return JSON.parse(localStorage.getItem("localWishlist")) || [];
   });
-
-  const countryOptions = ["Norge", "Sverige", "Danmark"];
-  const cityOptions = ["Oslo", "Stockholm", "København"];
 
   const apiKey = "4P5afjX98PHm5yhdSLbee6G9PVKAQGB7";
 
@@ -70,17 +63,45 @@ export default function CategoryPage ({ isLoggedIn }) {
 
         fetchData();
     }, [slug]);
+
+
+
+    const fetchByCountry = async () => {
+      if (!selectedCountry) return; 
+
+      const baseUrl = "https://app.ticketmaster.com/discovery/v2";
+      try{
+        const params = `apikey=${apiKey}&locale=*&countryCode=${encodeURIComponent(selectedCountry)}&size=20`;
+
+        const [attractionRes, venuesRes, eventRes] = await Promise.all([
+          fetch(`${baseUrl}/attractions.json?${params}`),
+          fetch(`${baseUrl}/venues.json?${params}`),
+          fetch(`${baseUrl}/events.json?${params}`)
+       
+        ]);
+
+        const [attractionsData, venuesData, eventsData] = await Promise.all([
+          attractionRes.json(),
+          venuesRes.json(),
+          eventRes.json()
+        ]);
+
+        const filteredAttractions = (attractionsData._embedded?.attractions || []).filter(attraction => {
+          const venueCountryCode = attraction._embedded?.venues?.[0]?.country?.countryCode || "";
+          return venueCountryCode.toUpperCase() === selectedCountry.toUpperCase();
+        })
+        setAttractions(filteredAttractions);
+        setVenues(venuesData._embedded?.venues || []);
+        setEvents(eventsData._embedded?.events || []);
+      } catch (error) {
+        console.error("Error fetching data by country:", error);
+      }
+    };
     
     useEffect(() => {
       localStorage.setItem("localWishlist", JSON.stringify(wishlist));
     }, [wishlist]);
-
-    useEffect(() => {
-      if (!isLoggedIn) {
-        setWishlist([]);
-        localStorage.removeItem("localWishlist");
-      }
-    }, [isLoggedIn]);
+;
 
     const toggleWishlist = (id) => {
       setWishlist((prev) =>
@@ -92,84 +113,32 @@ export default function CategoryPage ({ isLoggedIn }) {
     //https://stackoverflow.com/questions/66914812/filtering-data-using-react-hooks
 
 
-      const applyFilters = (items) => {
-
-        return items.filter((item) => {
-          const name = item.name?.toLowerCase () || "";
-          const city = item._embedded?.venues?.[0]?.city?.name?.toLowerCase() || item.city?.name?.toLowerCase() || "";
-          const country = item._embedded?.venues?.[0]?.country?.name?.toLowerCase() || item.country?.name?.toLowerCase() || "";
-          const date = item.dates?.start?.localDate || "";
-
-         return (
-          (!filters.date || date === filters.date) &&
-          (!filters.city || city === filters.city) &&
-          (!filters.country || country === filters.country) &&
-          (!filters.search || name.includes(filters.search.toLowerCase()))
-         )
-          
-        })
-      };
-
-      const filteredEvents = applyFilters(events);
-      const filteredAttractions = applyFilters(attractions);
-      const filteredVenues = applyFilters (venues);
-
-
   return (
     <>
 
       <h1>{categoryName}</h1>
 
-      <section className="filters">
-        <input
-          type="date"
-          value={filters.date}
-          onChange={(e) => setFilters({...filters, date: e.target.value})}
-        />
 
-        <select 
-          value={filters.city}
-          onChange={(e) => setFilters({...filters, city: e.targe.value.toLowerCase() })}>
-            <option value="">Velg by</option>
-            {cityOptions.map((city) => (
-              <option key={city} value={city}>
-                {city}
-          </option>
-            ))}
-          </select>
-
-
-          
-        <select 
-          value={filters.country}
-          onChange={(e) => setFilters({...filters, country: e.target.value.toLowerCase() })}>
-            <option value="">Velg land</option>
-            {countryOptions.map((country) => (
-              <option key={country} value={country}>
-                {country}
-          </option>
-            ))}
-          </select>
-        
-
-        
-
-        <input
-          type="text"
-          placeholder="Søk"
-          value={filters.search}
-          onChange={(e) => setFilters({...filters, search: e.target.value})}
-        />
-
-
-
-
+      <section className="country-selector">
+        <label htmlFor="country">Velg land:</label>
+        <select
+        id="country"
+        value={selectedCountry}
+        onChange={(e) => setSelectedCountry(e.target.value)}>
+          <option value="">-- Velg land --</option>
+          <option value="NO">Norge</option>
+          <option value="SE">Sverige</option>
+          <option value="DK">Danmark</option>
+        </select>
+        <button onClick={fetchByCountry} disabled={!selectedCountry}>
+          Søk
+        </button>
       </section>
 
       <section className="Attraction">
         <h2>Attraksjoner</h2>
         <div>
-          {filteredAttractions.map((item) => (
+          {attractions.map((item) => (
             <CategoryCard
             key={item.id}
             item={{ ...item, 
@@ -188,7 +157,7 @@ export default function CategoryPage ({ isLoggedIn }) {
       <section className="Arrangement">
         <h2>Arrangementer</h2>
         <div>
-          {filteredEvents.map((item) => (
+          {events.map((item) => (
             <CategoryCard
             key={item.id}
             item={{
@@ -209,7 +178,7 @@ export default function CategoryPage ({ isLoggedIn }) {
       <section className="Venues">
         <h2>Spillesteder</h2>
         <div>
-          {filteredVenues.map((item) => (
+          {venues.map((item) => (
             <CategoryCard
             key={item.id}
             item={{ ...item, 
