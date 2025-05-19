@@ -110,9 +110,6 @@ export default function CategoryPage () {
     };
 
 
-    //https://stackoverflow.com/questions/66914812/filtering-data-using-react-hooks
-
-
   return (
     <>
 
