@@ -30,6 +30,30 @@ main{
 
 }
 
+.country-selector{
+
+    label{
+        margin: 1rem;
+        background-color: white;
+        color: black;
+        padding: 0.5rem;
+
+    }
+
+    select{
+
+        
+        margin: 1rem;
+        background-color: white;
+        color: black;
+        padding: 0.5rem;
+
+
+        
+    }
+
+}
+
 .Attraction, .Arrangement, .Venues{
     h2{
         margin-top: 6rem;
