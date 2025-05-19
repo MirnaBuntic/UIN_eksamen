@@ -86,40 +86,41 @@ export default function SanityEventDetails() {
                     <li aria-current="page">{ticketData?.name}</li>
                 </ul>
             </nav>
+            <section className="sanity-info">
+                {/*Om ticketData finns visa information om event */}
+                {ticketData ? (
+                    <article className="eventdetailes" aria-label="Eventdetaljer" tabIndex="0">
+                        <h1 tabIndex="0">{ticketData.name}</h1>
+                        {/*Visa bild om den finns i ticketData*/}
+                        {ticketData.image && <img src={ticketData.image} alt={`Bilde av ${ticketData.name}`} tabIndex="0" />}
+                        <h3 tabIndex="0">Dato og sted</h3>
+                        <p>Dato: {ticketData.date || "Ukjent dato"}</p>
+                        <p>Sted: {ticketData.venue || "Ukjent sted"}</p>
+                        <h3 tabIndex="0">Sjanger</h3>
+                        <p>{ticketData.type || "Ingen sjanger oppgitt"}</p>
+                    </article>
+                ) : (
+                    //Meddelande till brukeren om eventdatan tar tid att lasta in
+                    <p aria-live="polite">Laster info om eventet...</p>
+                )}
 
-            {/*Om ticketData finns visa information om event */}
-            {ticketData ? (
-                <article className="eventdetailes" aria-label="Eventdetaljer" tabIndex="0">
-                    <h1 tabIndex="0">{ticketData.name}</h1>
-                    {/*Visa bild om den finns i ticketData*/}
-                    {ticketData.image && <img src={ticketData.image} alt={`Bilde av ${ticketData.name}`} tabIndex="0" />}
-                    <h3 tabIndex="0">Dato og sted</h3>
-                    <p>Dato: {ticketData.date || "Ukjent dato"}</p>
-                    <p>Sted: {ticketData.venue || "Ukjent sted"}</p>
-                    <h3 tabIndex="0">Sjanger</h3>
-                    <p>{ticketData.type || "Ingen sjanger oppgitt"}</p>
-                </article>
-            ) : (
-                //Meddelande till brukeren om eventdatan tar tid att lasta in
-                <p aria-live="polite">Laster info om eventet...</p>
-            )}
-
-            {/*Om det finns users i arrayen så visas info om dessa med namn och bild*/}
-            {relUsers.length > 0 && (
-                <article className="sanity-wishlist" aria-label="Brukere som har dette ønskelisten">
-                    <h2 tabIndex="0">Hvem har dette i ønskeliste</h2>
-                    <ul>
-                        {relUsers.map((user) => (
-                            <li key={user.name}>
-                                {user.image?.asset?.url && (
-                                    <img src={user.image.asset.url} alt={`Profilbilde av ${user.name}`}></img>
-                                )}
-                                <p>{user.name}</p>
-                            </li>
-                        ))}
-                    </ul>
-                </article>
-            )}
+                {/*Om det finns users i arrayen så visas info om dessa med namn och bild*/}
+                {relUsers.length > 0 && (
+                    <article className="sanity-wishlist" aria-label="Brukere som har dette ønskelisten">
+                        <h2 tabIndex="0">Hvem har dette i ønskeliste</h2>
+                        <ul>
+                            {relUsers.map((user) => (
+                                <li key={user.name}>
+                                    {user.image?.asset?.url && (
+                                        <img src={user.image.asset.url} alt={`Profilbilde av ${user.name}`}></img>
+                                    )}
+                                    <p>{user.name}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    </article>
+                )}
+            </section>
         </>
     );
 }
