@@ -20,11 +20,6 @@ export default function CategoryPage () {
   const [venues, setVenues] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
  
-
-  const [wishlist, setWishlist] = useState(() => {
-    return JSON.parse(localStorage.getItem("localWishlist")) || [];
-  });
-
   const apiKey = "4P5afjX98PHm5yhdSLbee6G9PVKAQGB7";
 
   useEffect(() => {
@@ -98,11 +93,20 @@ export default function CategoryPage () {
       }
     };
     
+    //https://www.w3schools.com/js/js_json_stringify.asp
+    //Hämtar data från localStorage och sparar i staten wishlist
+    //Använder json.parse för att konvertera json string tillbaka till en js-object (array)
+    const [wishlist, setWishlist] = useState(() => {
+      return JSON.parse(localStorage.getItem("localWishlist")) || [];
+    });
+
+    //Varje gång wishlist ändras så sparas en ny verision till localStorage
+    //json.stringify konverterar arrayen till wishlist som en string eftersom det bara är strings som kan sparas i localStorage
     useEffect(() => {
       localStorage.setItem("localWishlist", JSON.stringify(wishlist));
     }, [wishlist]);
-;
 
+    
     const toggleWishlist = (id) => {
       setWishlist((prev) =>
       prev.includes(id)? prev.filter((x) => x !== id) : [...prev, id]
